@@ -1,5 +1,5 @@
 {
-      "name": "portfolio",
+      "name": "SH",
       "version": "0.1.0",
       "private": true,
       "dependencies": {
@@ -42,6 +42,7 @@
             "react-dom": "^18.3.1",
             "react-hook-form": "^7.55.0",
             "react-resizable-panels": "^2.1.7",
+            "react-router-dom": "^7.9.1",
             "recharts": "^2.15.2",
             "sonner": "^2.0.3",
             "tailwind-merge": "*",
@@ -53,12 +54,16 @@
             "@types/react-dom": "^19.1.9",
             "@vitejs/plugin-react-swc": "^3.10.2",
             "autoprefixer": "^10.4.21",
+            "gh-pages": "^6.3.0",
             "postcss": "^8.5.6",
             "tailwindcss": "^4.1.13",
             "vite": "6.3.5"
       },
+      "homepage": "https://shaimaaalrifay.github.io/SH",
       "scripts": {
             "dev": "vite",
-            "build": "vite build"
+            "build": "vite build",
+            "predeploy": "npm run build",
+            "deploy": "gh-pages -d build"
       }
 }
