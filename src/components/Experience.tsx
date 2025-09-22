@@ -322,12 +322,12 @@ export function Experience() {
                         className={`flex flex-wrap gap-2 text-sm text-muted-foreground ${dir === "rtl" ? "flex-row" : ""}`}
                       >
                         <div className="flex items-center gap-2">
-                          <Calendar className="h-4 w-4 text-primary" />
-                          <span>{edu.period}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
                           <MapPin className="h-4 w-4 text-primary" />
                           <span>{edu.location}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Calendar className="h-4 w-4 text-primary" />
+                          <span>{edu.period}</span>
                         </div>
                       </div>
                     </CardHeader>
