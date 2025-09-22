@@ -3,7 +3,9 @@ import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Code, Palette, Smartphone, Users } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
-import avatarImage from "figma:asset/ba5917c064cb7b45282769b90a073d57a6671e16.png";
+// suppress TypeScript missing module error for static asset import
+// @ts-ignore
+import avatarImage from "../assets/avatarImage.png";
 
 export function About() {
   const { t } = useLanguage();

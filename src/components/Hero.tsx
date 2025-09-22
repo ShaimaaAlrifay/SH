@@ -57,6 +57,7 @@ export function Hero() {
                 style={{
                   backgroundSize: "200% 100%",
                   animation: "gradient-x 3s ease infinite",
+                  padding:"29px",
                 }}
               >
                 {t("hero.name")}

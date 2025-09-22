@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Heart, Menu, X, Globe } from "lucide-react";
-import { Button } from "./ui/button";
 import { useLanguage } from "./LanguageProvider";
 
 
@@ -18,26 +17,10 @@ export function Header() {
     { id: "contact", label: t('nav.contact') },
   ];
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { threshold: 0.6 }
-    );
-
-    const sections = document.querySelectorAll("section[id]");
-    sections.forEach((section) => observer.observe(section));
-
-    return () => observer.disconnect();
-  }, []);
-
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
+    setActiveSection(sectionId);
+    
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
@@ -47,7 +30,58 @@ export function Header() {
   const toggleLanguage = () => {
     setLanguage(language === 'ar' ? 'en' : 'ar');
   };
+  useEffect(() => {
+    const ids = navItems.map((i) => i.id);
+    const sections = ids
+      .map((id) => document.getElementById(id))
+      .filter(Boolean) as HTMLElement[];
 
+    if (sections.length === 0) return;
+
+    // Prefer IntersectionObserver for accuracy and performance
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          // pick the most visible / intersecting entry
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActiveSection(entry.target.id);
+            }
+          });
+        },
+        {
+          root: null,
+          // trigger when the section crosses roughly the middle of the viewport
+          rootMargin: "-40% 0px -40% 0px",
+          threshold: 0,
+        }
+      );
+
+      sections.forEach((s) => observer.observe(s));
+      return () => observer.disconnect();
+    }
+
+    // Fallback for browsers without IntersectionObserver
+    const onScroll = () => {
+      const mid = window.scrollY + window.innerHeight / 2;
+      let foundId: string | null = null;
+      for (const s of sections) {
+        const top = s.offsetTop;
+        const bottom = top + s.offsetHeight;
+        if (mid >= top && mid < bottom) {
+          foundId = s.id;
+          break;
+        }
+      }
+      if (foundId) setActiveSection(foundId);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    // run once to initialize
+    onScroll();
+
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [navItems]);
   return (
     <motion.header
       initial={{ y: -100, opacity: 0 }}

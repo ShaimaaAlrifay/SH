@@ -1,99 +1,56 @@
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { ExternalLink, Github, Star, Zap } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { useLanguage } from "./LanguageProvider";
-
+import drconsultancy from "../assets/drconsultancy.png";
+import shomokhalmasah from "../assets/shomokhalmasah.png";
+import sedrah from "../assets/sedrah.png";
+import rifq from "../assets/rifq.png";
+import coach from "../assets/coach.png";
+import rawweq from "../assets/rawweq.png";
+import Tatammman from "../assets/Tatamman.png";
 
 export function Projects() {
   const { t } = useLanguage();
-  const projects = [
-  {
-    id: 1,
-    title: "Dar al-Rahmah Consultancy",
-    description: "شركة تصميم موقع ويب مع شاشات متجاوبة وأيقونات متحركة لتقديم تجربة مستخدم مميزة.",
-    image: "figma:asset/53783a2e58abc2a5981ef0e65ace640407e103af.png",
-    technologies: ["Figma", "HTML5", "CSS3", "JavaScript", "Responsive Design"],
-    featured: true,
-    liveUrl: "https://www.figma.com/proto/ofSpFsma3x45aLOSzVnixM?node-id=0-1&t=PXkoVuzp65DFZWls-6",
-    githubUrl: "#",
-    category: "Web Design",
-  },
-  {
-    id: 2,
-    title: "Shomokh Almasah",
-    description: "موقع إلكتروني يقدم تجربة متكاملة للمستخدمين مع تصميم جذاب وسهل الاستخدام، يعكس هوية الشركة وخدماتها.",
-    image: "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-    technologies: ["Figma", "HTML5", "CSS3", "JavaScript", "Responsive Design"],
-    featured: true,
-    liveUrl: "https://shmokh-almasa.sa/",
-    githubUrl: "#",
-    category: "Web Design",
-  },
-  {
-    id: 3,
-    title: "Sedrah",
-    description: "نظام زراعي مدعوم بالذكاء الاصطناعي لتحسين إنتاجية المحاصيل وتعزيز الاستدامة، دعمًا لرؤية السعودية 2030.",
-    image: "https://images.unsplash.com/photo-1581091012184-865b0e8f2d8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-    technologies: ["React", "AI", "Figma", "Data Analytics", "Sustainability"],
-    featured: true,
-    liveUrl: "https://www.figma.com/proto/5SS9Q2KN29q4210eXsLe8w/Sedrah-Study-case?page-id=0%3A1&node-id=1-2&node-type=canvas&viewport=376%2C320%2C0.27&t=BwWT1zPU8NX5YfE9-1&scaling=min-zoom&content-scaling=fixed",
-    githubUrl: "#",
-    category: "AI/ML",
-  },
-  {
-    id: 4,
-    title: "Rifq Mental Health",
-    description: "تطبيق شامل لتحسين الصحة النفسية من خلال توصيات شخصية، برامج علاجية، مقالات تعليمية، والتواصل المباشر مع المختصين.",
-    image: "https://images.unsplash.com/photo-1590608897129-79ab1d78d9c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-    technologies: ["React Native", "AI", "Figma", "Therapeutic Programs", "UX/UI"],
-    featured: false,
-    liveUrl: "https://www.figma.com/proto/UF8K9Je2hpXeuF61ukqs1q/%D8%B1%D9%90%D9%81%D9%82?page-id=0%3A1&node-id=1-773&node-type=canvas&viewport=-2400%2C1656%2C0.6&t=HxenCHZZCplELYWo-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1%3A773",
-    githubUrl: "#",
-    category: "Mobile App",
-  },
-  {
-    id: 5,
-    title: "Rawweq",
-    description: "تطبيق للصحة النفسية يوفر موارد شخصية ومريحة للأفراد، باستخدام تقنية الذكاء الاصطناعي لتقديم بيئة آمنة وتفاعلية.",
-    image: "https://images.unsplash.com/photo-1588776814546-9e8e8bba6f05?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-    technologies: ["React Native", "AI", "Figma", "Firebase", "UX/UI"],
-    featured: false,
-    liveUrl: "https://www.figma.com/proto/D16CyAri2k81CSmXNgXbSS/rawweq?page-id=12%3A178&node-id=12-547&node-type=canvas&viewport=1628%2C-283%2C0.4&t=anVriJV8GSLvkMu0-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=13%3A5601",
-    githubUrl: "#",
-    category: "Mobile App",
-  },
-  {
-    id: 6,
-    title: "Coach",
-    description: "تطبيق جوال صُمم باستخدام Figma لتقديم تجربة سلسة للمستخدم، يمكّن المدربين من إنشاء برامج تدريبية شخصية والتواصل مع العملاء بسهولة.",
-    image: "https://images.unsplash.com/photo-1611162617212-fd9037c17f7b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-    technologies: ["Figma", "React Native", "UX/UI", "Mobile App"],
-    featured: false,
-    liveUrl: "https://www.figma.com/proto/1Kco7C1UYys7lFTFLGyvtH/coach?page-id=0%3A1&node-id=7-452&p=f&viewport=-131%2C-561%2C0.11&t=8ldQZRXiyx9biMWP-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=15%3A507",
-    githubUrl: "#",
-    category: "Mobile App",
-  },
-  {
-    id: 7,
-    title: "Tatamman",
-    description: "مشروع لتطبيق Widgets، حيث تم تصميم الويدجتس بعدة أحجام وألوان لتوفير تجربة مستخدم مرنة وقابلة للتخصيص.",
-    image: "https://images.unsplash.com/photo-1612831455546-c3b2b8b8796b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-    technologies: ["Figma", "UX/UI", "Widgets Design", "Responsive Design"],
-    featured: false,
-    liveUrl: "https://www.figma.com/proto/MoiMna5njnIw6dRnAMMUI7/%D8%AA%D8%B7%D9%85%D9%91%D9%86?page-id=0%3A1&node-id=1-2&p=f&viewport=38%2C165%2C0.46&t=aMFKyP708qxu1Xxo-1&scaling=contain&content-scaling=fixed",
-    githubUrl: "#",
-    category: "UI/UX",
-  },
-];
-
-
+  const images = [
+     drconsultancy,
+     shomokhalmasah,
+     sedrah,
+     rifq,
+     rawweq,
+     coach,
+     Tatammman,
+  ];
+  const liveUrl = [
+     "https://www.figma.com/proto/ofSpFsma3x45aLOSzVnixM?node-id=0-1&t=PXkoVuzp65DFZWls-6",
+     "https://shmokh-almasa.sa/",
+     "https://www.figma.com/proto/5SS9Q2KN29q4210eXsLe8w/Sedrah-Study-case?page-id=0%3A1&node-id=1-2&node-type=canvas&viewport=376%2C320%2C0.27&t=BwWT1zPU8NX5YfE9-1&scaling=min-zoom&content-scaling=fixed",
+     "https://www.figma.com/proto/UF8K9Je2hpXeuF61ukqs1q/%D8%B1%D9%90%D9%81%D9%82?page-id=0%3A1&node-id=1-773&node-type=canvas&viewport=-2400%2C1656%2C0.6&t=HxenCHZZCplELYWo-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1%3A773",
+     "https://www.figma.com/proto/D16CyAri2k81CSmXNgXbSS/rawweq?page-id=12%3A178&node-id=12-547&node-type=canvas&viewport=1628%2C-283%2C0.4&t=anVriJV8GSLvkMu0-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=13%3A5601",
+     "https://www.figma.com/proto/1Kco7C1UYys7lFTFLGyvtH/coach?page-id=0%3A1&node-id=7-452&p=f&viewport=-131%2C-561%2C0.11&t=8ldQZRXiyx9biMWP-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=15%3A507",
+     "https://www.figma.com/proto/MoiMna5njnIw6dRnAMMUI7/%D8%AA%D8%B7%D9%85%D9%91%D9%86?page-id=0%3A1&node-id=1-2&p=f&viewport=38%2C165%2C0.46&t=aMFKyP708qxu1Xxo-1&scaling=contain&content-scaling=fixed",
+  ]
+  const projectIds = [1, 2, 3, 4, 5, 6, 7];
+  const projects = projectIds.map(id => {
+    const technologies = t(`projects.${id}.technologies`);
+    const featured = t(`projects.${id}.featured`);
+    return {
+      id,
+      title: t(`projects.${id}.title`),
+      description: t(`projects.${id}.description`),
+      image: images[id - 1], 
+      technologies: Array.isArray(technologies) ? technologies : typeof technologies === "string" ? technologies.split(",").map(s => s.trim()) : [],
+      featured,
+      liveUrl: liveUrl[id - 1], 
+      category: t(`projects.${id}.category`),
+    };
+  });
 
   const featuredProjects = projects.filter(project => project.featured);
   const otherProjects = projects.filter(project => !project.featured);
-
   return (
     <section id="projects" className="py-20 bg-gradient-to-br from-secondary/10 to-background">
       <div className="container mx-auto px-4">
@@ -147,7 +104,7 @@ export function Projects() {
                     <ImageWithFallback
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="w-full h-100 object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <motion.div
@@ -204,7 +161,7 @@ export function Projects() {
                   transition={{ duration: 0.6, delay: 0.5 }}
                   viewport={{ once: true }}
                 >
-                  {project.technologies.map((tech, techIndex) => (
+                  {project.technologies.map((tech: string, techIndex: number) => (
                     <motion.div
                       key={tech}
                       initial={{ opacity: 0, scale: 0.8 }}
@@ -242,11 +199,6 @@ export function Projects() {
                         {t("projects.view")}
                       </a>
                     </Button>
-                  </motion.div>
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
                   </motion.div>
                 </motion.div>
               </div>
@@ -305,24 +257,28 @@ export function Projects() {
                       {project.title}
                     </CardTitle>
                   </CardHeader>
+        
                   <CardContent className="space-y-4">
                     <p className="text-muted-foreground text-sm leading-relaxed">
                       {project.description}
                     </p>
-                    
+
                     <div className="flex flex-wrap gap-2">
-                      {project.technologies.slice(0, 3).map((tech) => (
-                        <Badge key={tech} variant="outline" className="text-xs hover:bg-primary/10 transition-colors">
+                      {project.technologies.slice(0, 4).map((tech: string) => (
+                        <Badge
+                          key={tech}
+                          variant="outline"
+                          className="text-xs hover:bg-primary/10 transition-colors"
+                        >
                           {tech}
                         </Badge>
                       ))}
-                      {project.technologies.length > 3 && (
+                      {project.technologies.length > 4 && (
                         <Badge variant="outline" className="text-xs bg-primary/10 text-primary">
-                          +{project.technologies.length - 3} more
+                          +{project.technologies.length - 4} more
                         </Badge>
                       )}
                     </div>
-
                     <div className="flex gap-3 pt-2">
                       <Button size="sm" asChild className="flex-1">
                         <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">

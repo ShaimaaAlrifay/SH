@@ -15,7 +15,7 @@ export function Skills() {
         { name: "React Native", level: 60 },
         { name: "JavaScript", level: 50 },
         { name: "TypeScript", level: 10 },
-        { name: "HTML/CSS", level: 98 },
+        { name: "HTML/CSS", level: 85 },
       ],
     },
     {
@@ -32,11 +32,10 @@ export function Skills() {
       title: t('skills.soft'),
       icon: Brain,
       skills: [
-        { name: language === 'ar' ? "التواصل" : "Communication", level: 90 },
-        { name: language === 'ar' ? "حل المشكلات" : "Problem Solving", level: 80 },
-        { name: language === 'ar' ? "قيادة الفريق" : "Team Leadership", level: 85 },
-        { name: language === 'ar' ? "إدارة المشاريع" : "Project Management", level: 80 },
-        { name: language === 'ar' ? "التوجيه" : "Mentoring", level: 85 },
+        { name: language === 'ar' ? "التواصل" : "Communication", level: 98 },
+        { name: language === 'ar' ? "حل المشكلات" : "Problem Solving", level: 75 },
+        { name: language === 'ar' ? "قيادة الفريق" : "Team Leadership", level: 80 },
+        { name: language === 'ar' ? "إدارة المشاريع" : "Project Management", level: 60 },
       ],
     },
   ];

@@ -25,8 +25,8 @@ export function Experience() {
         t("experience.work.1.description.2"),
         t("experience.work.1.description.3"),
       ],
-      technologies: ["React", "Figma", "React Native CLI"],
-      current: false,
+      technologies: ["Figma", "UI/UX", "React"],
+      current: true,
     },
     {
       id: 2,
@@ -56,8 +56,8 @@ export function Experience() {
         t("experience.work.3.description.3"),
         t("experience.work.3.description.4"),
       ],
-      technologies: ["Figma", "UI/UX", "React"],
-      current: true,
+      technologies: ["React", "Figma", "React Native CLI"],
+      current: false,
     },
   ];
 
@@ -82,7 +82,10 @@ export function Experience() {
     t("certifications.3"),
     t("certifications.4"),
   ];
-
+  const Honors = [
+    t("honors.1"),
+    t("honors.2"),
+  ];
   return (
     <section
       id="experience"
@@ -379,6 +382,43 @@ export function Experience() {
               </h4>
               <div className="space-y-3 md:space-y-4">
                 {certifications.map((cert, index) => (
+                  <motion.div
+                    key={cert}
+                    initial={{
+                      opacity: 0,
+                      x: dir === "rtl" ? 20 : -20,
+                    }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{
+                      duration: 0.4,
+                      delay: index * 0.05,
+                    }}
+                    viewport={{ once: true }}
+                    className={`flex items-center gap-3 text-sm md:text-base text-foreground ${dir === "rtl" ? "flex-row" : ""}`}
+                  >
+                    <span className="text-primary text-lg">
+                      ✓
+                    </span>
+                    <span>{cert}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Honors */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
+              className="mt-8 md:mt-12"
+            >
+              <h4 className="text-lg md:text-xl font-bold mb-6 flex items-center gap-3 text-foreground">
+                <span className="text-xl">🏆</span>
+                {t("honors.title")}
+              </h4>
+              <div className="space-y-3 md:space-y-4">
+                {Honors.map((cert, index) => (
                   <motion.div
                     key={cert}
                     initial={{

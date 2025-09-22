@@ -22,7 +22,7 @@ export function Contact() {
     {
       icon: <MapPin className="h-4 w-4 sm:h-5 sm:w-5" />,
       label: t('contact.location'),
-      value: "مكة المكرمة، المملكة العربية السعودية",
+      value: t('contact.location.me'),
       href: "#",
     },
   ];
