@@ -41,8 +41,6 @@ const translations = {
 
     // Skills
     "skills.title": "المهارات والخبرات",
-    "skills.subtitle":
-      "مجموعة شاملة من الأدوات لبناء تطبيقات الويب الحديثة والقابلة للتطوير",
     "skills.Applications&Web": "تطوير التطبيقات والمواقع",
     "skills.tools": "الأدوات والتقنيات",
     "skills.soft": "المهارات الشخصية",

@@ -64,15 +64,6 @@ export function Skills() {
           >
             {t('skills.title')}
           </motion.h2>
-          <motion.p 
-            className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-          >
-            {t('skills.subtitle')}
-          </motion.p>
         </motion.div>
 
         {/* Skill Categories */}
