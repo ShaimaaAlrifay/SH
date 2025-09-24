@@ -141,7 +141,7 @@ const translations = {
 
     "experience.work.2.title": "مصممة UI/UX",
     "experience.work.2.company": "RobinFood",
-    "experience.work.2.location":  "مكة المكرمة، المملكة العربية السعودية",
+    "experience.work.2.location": "مكة المكرمة، المملكة العربية السعودية",
     "experience.work.2.period": "ديسمبر 2024 – مايو 2025",
     "experience.work.2.type": "دوام كامل",
     "experience.work.2.description.1":
@@ -162,6 +162,7 @@ const translations = {
       "التعاون مع مطوري الواجهة الخلفية لدمج واجهات API",
     "experience.work.3.description.3":
       "المشاركة في جلسات اختبار المستخدم لجمع الملاحظات وتحسين التصميمات",
+
     // Education
     "education.title": "التعليم",
     "education.school.1.degree":
@@ -359,7 +360,7 @@ const translations = {
       "Designed wireframes and high-fidelity prototypes for landing page, customer app, and driver app using Figma",
     "experience.work.2.description.3":
       "Conducted usability testing and implemented improvements to optimize user flow and interface performance",
-          "experience.work.3.title": "React Native Developer Internship Trainee",
+    "experience.work.3.title": "React Native Developer Internship Trainee",
     "experience.work.3.company": "First City",
     "experience.work.3.location": "Makkah",
     "experience.work.3.period": "Jul 2023 – Aug 2023",
@@ -436,13 +437,15 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>("ar");
-
-  const t = (key: string): string | string[] | boolean => {
-    const value = translations[language][key as keyof (typeof translations)["ar"]];
-    return value ?? key;
-  };
-
   const dir = language === "ar" ? "rtl" : "ltr";
+
+  const t = (key: string): string => {
+    const value =
+      translations[language][key as keyof (typeof translations)["ar"]];
+    if (Array.isArray(value)) return value.join(", ");
+    if (typeof value === "boolean") return value ? "true" : "false";
+    return typeof value === "string" ? value : key;
+  };
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t, dir }}>

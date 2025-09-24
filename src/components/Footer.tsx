@@ -69,7 +69,7 @@ export function Footer() {
               {/* Contact Info */}
               <div className="space-y-3">
                 <motion.a
-                  href="mailto:shaimaaalrifay@example.com"
+                  href="mailto:shaimaaalrifay@gmail.com"
                   className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors duration-300 group"
                   whileHover={{ x: language === 'ar' ? -5 : 5 }}
                 >
@@ -78,12 +78,12 @@ export function Footer() {
                 </motion.a>
                 
                 <motion.a
-                  href="tel:+966123456789"
+                  href="tel:+966545411002"
                   className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors duration-300 group"
                   whileHover={{ x: language === 'ar' ? -5 : 5 }}
                 >
                   <Phone className="h-4 w-4 text-primary group-hover:scale-110 transition-transform duration-300" />
-                  <span className="text-sm md:text-base">+966 54 541 1002</span>
+                  <span className="text-sm md:text-base">+966545411002</span>
                 </motion.a>
                 
                 <motion.div
