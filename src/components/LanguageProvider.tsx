@@ -19,8 +19,8 @@ const translations = {
     "nav.contact": "تواصل معي",
 
     // Hero
-    "hero.greeting": "مرحباً، أنا",
-    "hero.name": "شيماء الرفاعي",
+    "hero.greeting": "مرحباً،",
+    "hero.name": "أنـــا شيمــــاء",
     "hero.title": "مصممة واجهات وتجربة المستخدم ومطورة تطبيقات",
     "hero.description":
       "أحول الأفكار إلى تجارب رقمية رهيــبة باستخدام أحدث التقنيات والتصاميم المبتكرة",
@@ -435,17 +435,15 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
   undefined
 );
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
+  export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>("ar");
-  const dir = language === "ar" ? "rtl" : "ltr";
 
-  const t = (key: string): string => {
-    const value =
-      translations[language][key as keyof (typeof translations)["ar"]];
-    if (Array.isArray(value)) return value.join(", ");
-    if (typeof value === "boolean") return value ? "true" : "false";
-    return typeof value === "string" ? value : key;
+  const t = (key: string): string | string[] | boolean => {
+    const value = translations[language][key as keyof (typeof translations)["ar"]];
+    return value ?? key;
   };
+
+  const dir = language === "ar" ? "rtl" : "ltr";
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t, dir }}>

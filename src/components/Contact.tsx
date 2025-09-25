@@ -16,8 +16,8 @@ export function Contact() {
     {
       icon: <Phone className="h-4 w-4 sm:h-5 sm:w-5" />,
       label: t('contact.phone'),
-      value: "+966 54 541 1002",
-      href: "tel:+966123456789",
+      value: "0545411002",
+      href: "tel:+966545411002",
     },
     {
       icon: <MapPin className="h-4 w-4 sm:h-5 sm:w-5" />,
@@ -84,27 +84,6 @@ export function Contact() {
             viewport={{ once: true }}
             className="space-y-6 md:space-y-8 mb-12 md:mb-16"
           >
-            <div className="text-center mb-8 md:mb-12">
-              <motion.h3 
-                className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6 flex items-center justify-center gap-3 flex-wrap"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}
-              >
-                <MessageCircle className="h-6 w-6 sm:h-8 sm:w-8 text-primary flex-shrink-0" />
-                <span className="text-[rgba(255,255,255,1)]">{t('contact.lets')}</span>
-              </motion.h3>
-              <motion.p 
-                className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed whitespace-pre-line"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                viewport={{ once: true }}
-              >
-                {t('contact.description')}
-              </motion.p>
-            </div>
 
             {/* Contact Info Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">

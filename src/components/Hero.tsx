@@ -15,7 +15,7 @@ export function Hero() {
 
   // Open CV
   const openCV = () => {
-    window.open("https://linktr.ee/shaimaaalrifay", "_blank"); // حطي مسار ملف السيرة الذاتية الصحيح
+    window.open("https://linktr.ee/shaimaaalrifay", "_blank");
   };
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
@@ -65,17 +65,6 @@ export function Hero() {
             </h1>
           </motion.div>
 
-          {/* Subtitle */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            className="relative"
-          >
-            <h3 className="text-2xl md:text-3xl text-muted-foreground mb-2">
-              {t("hero.title")}
-            </h3>
-          </motion.div>
 
           {/* Description */}
           <motion.p
