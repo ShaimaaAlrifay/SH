@@ -1,0 +1,6 @@
+/* Tailwind v4 utilities only, scoped to the AreebLanding component.
+   Deliberately skips preflight/base (the `@import "tailwindcss"` shorthand
+   pulls that in) since the reset is global and would regress every other
+   hand-styled component on this site (box-sizing, heading margins, etc.). */
+@import "tailwindcss/theme.css";
+@import "tailwindcss/utilities.css";

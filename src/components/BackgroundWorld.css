@@ -1,0 +1,15 @@
+.bg-world{position:fixed;inset:0;z-index:0;overflow:hidden;background:#050506;
+  pointer-events:none}
+.bg-world-atmo{position:absolute;inset:-6%;will-change:transform;
+  background:
+    radial-gradient(60% 46% at 30% 8%,rgba(30,42,84,.5) 0%,rgba(30,42,84,0) 100%),
+    radial-gradient(55% 40% at 78% 34%,rgba(58,26,34,.4) 0%,rgba(58,26,34,0) 100%),
+    radial-gradient(70% 50% at 50% 72%,rgba(20,28,58,.42) 0%,rgba(20,28,58,0) 100%),
+    radial-gradient(50% 40% at 20% 96%,rgba(46,20,26,.36) 0%,rgba(46,20,26,0) 100%),
+    linear-gradient(to bottom,#08080a 0%,#0a0a0e 40%,#0b0b10 70%,#050507 100%)}
+.bg-world-grain{position:absolute;inset:0;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.bg-world-vig{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(120% 85% at 50% 40%,transparent 45%,rgba(0,0,0,.55) 100%)}
+
+body.reduced .bg-world-atmo{transform:none !important}

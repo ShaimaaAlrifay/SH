@@ -1,0 +1,476 @@
+:root{
+  /* dark: deep navy, never pure black */
+  --void:#000B15;
+  --bg-2:#011726;
+  --surface:#052033;
+  --surface-2:#0A2A40;
+  --ink:#F5F5F2;
+  --dim:#A6A6A2;
+  --faint:#6F6F6C;
+  --border:rgba(255,255,255,.12);
+  --border-2:rgba(255,255,255,.06);
+  --crimson:#9E2F35;           /* the one red the whole site uses */
+  --alert:var(--crimson);
+  --accent:var(--ink);          /* statements stay monochrome in the dark — colour is used selectively, not sprayed */
+  --accent-2:var(--faint);
+  --accent-3:var(--faint);
+  --accent-4:var(--faint);
+  --vig:rgba(0,0,0,.66);
+  --pad:8vw;
+  --band:30vh;
+  --sketch:url("/assets/img/sketch.webp");
+  --notes:url("/assets/img/notes.webp");
+  --sweep:linear-gradient(to bottom,#000 0%,#000 33.34%,rgba(0,0,0,0) 41%,rgba(0,0,0,0) 100%);
+  /* dark signature gradient — desaturated, editorial, used sparingly:
+     toggle, progress border, small accents, never the whole interface */
+  --pal-blue:#5B7CFF;
+  --pal-violet:#8B6CFF;
+  --pal-coral:#FF7A70;
+  --pal-mint:#63E6BE;
+  --pal-pink:var(--pal-coral);
+  --pal-orange:var(--pal-coral);
+  --pal-yellow:var(--pal-mint);
+  /* project identity accents — one dim accent per project, used only for
+     small labels, never a full section recolour */
+  --proj-rakaya:var(--pal-mint);
+  --proj-awwab:var(--pal-blue);
+  --proj-tutmain:var(--pal-violet);
+  --proj-areep:var(--pal-blue);
+  --proj-areep-2:var(--pal-coral);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--void)}
+body{background:var(--void);color:var(--ink);
+  font-family:"Inter Tight",system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:none}
+
+/* ================= the stage ================= */
+.stage{position:fixed;inset:0;overflow:hidden;z-index:1}
+.cam{position:absolute;inset:0;will-change:transform}
+
+.dev{position:absolute;left:50%;top:50%;opacity:0;will-change:transform,opacity,filter}
+.dev.off{visibility:hidden}
+.dev img{width:100%;height:auto}
+
+/* Devices are capped by viewport HEIGHT via their own aspect ratio, so each
+   one occupies only the middle band and the text bands above and below stay
+   empty. Centre-stage plates (2.04 and 4.91 wide) are limited to ~39vh tall;
+   the iPad sits off-centre so it may be taller, but never wider than the
+   column it must clear. */
+.dev-ipad{width:min(980px,66vw,56vh)}
+.dev-design,.dev-ide{width:min(1180px,66vw,73vh)}
+/* upright device plate (aspect 0.486): 29vh wide = 60vh tall, which fits
+   between the slim 15vh bands this chapter uses. */
+.dev-phone{width:min(560px,60vw,29vh)}
+
+.canvas{position:absolute;overflow:hidden;left:10.86%;top:17.89%;width:79.33%;height:72.76%}
+.band{--mp:100%;position:absolute;top:0;height:100%;overflow:hidden;
+  -webkit-mask-image:var(--sweep);mask-image:var(--sweep);
+  -webkit-mask-size:100% 300%;mask-size:100% 300%;
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+  -webkit-mask-position:0% var(--mp);mask-position:0% var(--mp)}
+.band .ink{position:absolute;top:0;height:100%;
+  background-repeat:no-repeat;background-size:100% 100%;background-image:var(--sketch)}
+.notes{position:absolute;inset:0;opacity:0;background:var(--notes) 0 0/100% 100% no-repeat}
+.nib{position:absolute;width:9px;height:9px;margin:-4px 0 0 -4px;border-radius:50%;
+  background:#1d1d1f;box-shadow:0 0 0 5px rgba(30,30,32,.16);opacity:0}
+.tap{position:absolute;width:14%;aspect-ratio:1;border-radius:50%;
+  border:1px solid rgba(245,245,242,.85);opacity:0;pointer-events:none}
+/* measured off the finished plate; the device is square to the frame, so no
+   rotation is needed. Inset slightly so the line sits on the screen, not the bezel. */
+.fault{position:absolute;left:4.2%;top:9%;width:89.5%;height:87.5%;
+  border:2px solid var(--alert);border-radius:10%/5%;
+  opacity:0;pointer-events:none;box-shadow:0 0 70px rgba(158,47,53,.28) inset}
+
+/* ================= composition system =================
+   Nothing is placed by eyeballed percentages. Every text block declares a
+   VERTICAL ZONE (which safe area it lives in) and a HORIZONTAL STATE
+   (left / centre / right). Zones never intersect a device band. */
+.type{position:absolute;inset:0;pointer-events:none;z-index:3}
+
+.line{position:absolute;left:0;right:0;top:0;height:100%;
+  display:grid;align-content:center;padding-inline:var(--pad);
+  opacity:0;will-change:transform,opacity,filter}
+.line p{max-width:100%;overflow-wrap:break-word;
+  font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 92;font-weight:400;
+  letter-spacing:-.025em;line-height:1.3}
+.line em{font-style:italic;font-synthesis:none;color:var(--accent)}
+
+/* --- vertical zones (safe text areas) --- */
+.z-top{height:var(--band)}                                   /* above a device */
+.slim{height:15vh}                                           /* upright device  */
+.z-bot{top:auto;bottom:0;height:var(--band)}                 /* below a device */
+
+/* --- horizontal states: LEFT or CENTRE only. The rule is spatial, not
+       decorative — CENTRE whenever the frame is symmetrical (a centred device
+       anchors it, or nothing does); LEFT whenever typography carries the
+       chapter alone or stands beside an off-centre object. --- */
+.at-l{justify-items:start;text-align:left}
+.at-c{justify-items:center;text-align:center}
+.at-l p{max-width:min(1100px,74vw)}
+.at-c p{max-width:min(1200px,80vw)}
+
+/* --- type tiers: every size is capped by BOTH vw and vh so a wide-short
+       window can never let a statement escape its zone --- */
+.t-xl p{font-size:clamp(2.2rem,min(6.6vw,11.5vh),6.4rem);font-weight:500;
+  font-variation-settings:"wdth" 96;letter-spacing:-.045em;line-height:.99}
+.t-lg p{font-size:clamp(1.7rem,min(5.4vw,8.2vh),4.4rem);font-weight:500;
+  font-variation-settings:"wdth" 94;letter-spacing:-.04em;line-height:1.04}
+.t-md p{font-size:clamp(1rem,min(2.1vw,3.2vh),1.55rem);color:var(--dim);line-height:1.45}
+.t-mono p{font-family:"JetBrains Mono",monospace;
+  font-size:clamp(.62rem,min(.95vw,1.5vh),.8rem);letter-spacing:.19em;
+  text-transform:uppercase;color:var(--dim);font-weight:500;line-height:2}
+
+/* --- manifesto words --- */
+.word{position:absolute;left:0;right:0;top:0;height:100%;
+  display:grid;align-content:center;padding-inline:var(--pad);opacity:0}
+.word h2{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 112;font-weight:700;
+  font-size:clamp(2.4rem,min(11vw,19vh),10rem);letter-spacing:-.055em;line-height:.9;max-width:100%}
+.word.long h2{font-size:clamp(1.8rem,min(7.4vw,13vh),6.8rem)}  /* ENGINEERING */
+.word ul{list-style:none;margin-top:clamp(1rem,3vh,2.2rem);
+  display:flex;gap:.8rem 2.2rem;flex-wrap:wrap;opacity:0;max-width:100%}
+.word.at-c ul{justify-content:center}
+.word li{font-family:"JetBrains Mono",monospace;font-size:clamp(.68rem,min(.84vw,1.4vh),.84rem);
+  letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-weight:500}
+
+/* --- project chapters: a reserved left column, fragment in a reserved right one --- */
+.chap{position:absolute;left:0;top:0;height:100%;width:min(720px,42vw);
+  display:grid;align-content:center;padding-inline:var(--pad);text-align:left}
+.chap-no{font-family:"JetBrains Mono",monospace;font-size:clamp(.6rem,.7vw,.72rem);
+  letter-spacing:.24em;text-transform:uppercase;color:var(--accent-2);font-weight:500;opacity:0}
+.chap-name{margin-top:clamp(.8rem,2vh,1.4rem);font-family:"Archivo",sans-serif;
+  font-variation-settings:"wdth" 110;font-weight:700;
+  font-size:clamp(2.2rem,min(8.4vw,14vh),8rem);letter-spacing:-.05em;line-height:.92;
+  max-width:100%;opacity:0;transform-origin:0% 50%;will-change:transform,opacity,filter}
+.chap-name.ar{font-family:"IBM Plex Sans Arabic",sans-serif;font-weight:600;
+  letter-spacing:0;line-height:1.2}
+.chap-say em{color:var(--accent)}
+.chap-say{margin-top:clamp(1rem,2.4vh,1.8rem);font-family:"Archivo",sans-serif;
+  font-variation-settings:"wdth" 92;font-size:clamp(1rem,min(1.9vw,2.9vh),1.6rem);
+  letter-spacing:-.02em;line-height:1.35;max-width:34ch;opacity:0}
+.chap-tags{margin-top:clamp(1.2rem,3vh,2.4rem);display:flex;gap:.6rem 1.8rem;flex-wrap:wrap}
+.chap-tags b{font-family:"JetBrains Mono",monospace;font-weight:500;
+  font-size:clamp(.62rem,.72vw,.72rem);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--dim);opacity:0}
+/* project identity system — each project carries one accent, used only for
+   its number and its tag pills, dim in the dark and vivid once colourful.
+   Rakaya: teal/green · AWWAB (خطوة مسار): electric blue · تطمّن: violet */
+/* a frosted fill keeps the pill legible regardless of what the animated
+   background happens to be doing behind it (a project's own accent colour
+   can otherwise wash out against a same-hued moment in the gradient) */
+.chap-tags>b{border:1px solid var(--border);border-radius:999px;
+  padding:.3em .85em;transition:border-color .3s ease,color .3s ease;
+  background:color-mix(in srgb,var(--void) 55%,transparent);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.chap-a .chap-no{color:var(--proj-rakaya)}
+.chap-a .chap-tags>b{border-color:color-mix(in srgb,var(--proj-rakaya) 34%,transparent);color:var(--proj-rakaya)}
+.chap-a .frag{filter:drop-shadow(0 0 46px color-mix(in srgb,var(--proj-rakaya) 16%,transparent))}
+.chap-b .chap-no{color:var(--proj-awwab)}
+.chap-b .chap-tags>b{border-color:color-mix(in srgb,var(--proj-awwab) 34%,transparent);color:var(--proj-awwab)}
+.chap-b .frag{filter:drop-shadow(0 0 46px color-mix(in srgb,var(--proj-awwab) 16%,transparent))}
+.chap-c .chap-no{color:var(--proj-tutmain)}
+.chap-c .chap-tags>b{border-color:color-mix(in srgb,var(--proj-tutmain) 34%,transparent);color:var(--proj-tutmain)}
+.chap-c .frag{filter:drop-shadow(0 0 46px color-mix(in srgb,var(--proj-tutmain) 16%,transparent))}
+/* the chapter column ends at 54vw and the margin is 8vw, so the fragment has
+   38vw of clear space; centred within that space (not flush to the edge)
+   so it reads as a real showcase piece beside the text, not a corner crop. */
+.frag{position:absolute;right:calc(var(--pad) + 4vw);top:50%;width:min(560px,34vw,58vh);height:auto;
+  transform:translateY(-50%);opacity:0;will-change:transform,opacity}
+/* the one landscape plate needs more width to carry equal visual weight */
+.frag.wide{width:min(640px,38vw,86vh)}
+
+/* --- THE GAP: three reserved rows. IDEA and PRODUCT can never enter the
+       middle region because the grid gives it its own track. --- */
+.gapwrap{position:absolute;inset:0;opacity:0;
+  display:grid;grid-template-rows:auto minmax(0,1fr) auto;
+  justify-items:start;align-items:center;
+  padding:10vh var(--pad);row-gap:clamp(1.2rem,4vh,3rem)}
+.gapword{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 116;font-weight:700;
+  font-size:clamp(1.6rem,min(5.6vw,8vh),4.2rem);letter-spacing:-.045em;line-height:1}
+.gapword.a{grid-row:1}
+.gapword.b{grid-row:3}
+.bridge{grid-row:2;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
+  gap:clamp(.15rem,1.2vh,.7rem);width:100%;min-height:0}
+.bridge b{font-family:"JetBrains Mono",monospace;font-weight:500;
+  font-size:clamp(.64rem,min(1.1vw,1.8vh),.88rem);letter-spacing:.15em;
+  text-transform:uppercase;color:var(--accent-3);opacity:0;white-space:nowrap}
+.arrow{grid-row:2;opacity:0;color:var(--dim);line-height:1;
+  font-size:clamp(1.1rem,min(3vw,4vh),1.9rem)}
+
+.caret{position:absolute;left:50%;top:50%;width:2px;height:clamp(26px,3.2vw,44px);
+  margin-left:-1px;background:var(--ink);opacity:0}
+
+/* ================= signature & running head ================= */
+/* flat colour + shadow instead of mix-blend-mode:difference — Safari/WebKit
+   renders blend modes against WebGL canvas content as a solid block instead
+   of inverting, which made this text disappear entirely in that browser */
+.sig{position:fixed;right:2.4vw;top:2.4vh;z-index:7;opacity:0;
+  text-shadow:0 1px 14px rgba(0,0,0,.6),0 1px 3px rgba(0,0,0,.5);
+  display:flex;flex-direction:column;align-items:flex-end;gap:.3rem;text-align:right}
+.sig-n{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 100;font-weight:500;
+  font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:#F5F5F2;white-space:nowrap}
+.sig-r{font-family:"JetBrains Mono",monospace;font-size:.58rem;letter-spacing:.14em;
+  text-transform:uppercase;color:#F5F5F2;opacity:.62;white-space:nowrap;font-weight:500}
+.sig-cv{margin-top:.5rem;font-family:"JetBrains Mono",monospace;font-size:.58rem;
+  letter-spacing:.14em;text-transform:uppercase;color:#F5F5F2;opacity:.7;text-decoration:none;
+  font-weight:500;border-bottom:1px solid rgba(245,245,242,.3);padding-bottom:1px;
+  transition:opacity .4s ease,border-color .4s ease}
+.sig-cv:hover,.sig-cv:focus-visible{opacity:1;border-color:var(--pal-blue)}
+.sig-cv:focus-visible{outline:1px solid var(--pal-blue);outline-offset:5px}
+
+.mark{position:fixed;left:2.6vw;bottom:3.4vh;z-index:7;opacity:0;
+  text-shadow:0 1px 14px rgba(0,0,0,.6),0 1px 3px rgba(0,0,0,.5);
+  font-family:"JetBrains Mono",monospace;font-size:.62rem;letter-spacing:.2em;
+  text-transform:uppercase;font-weight:500;color:#F5F5F2;display:flex;gap:.7em;align-items:baseline}
+.mark i{font-style:normal;opacity:.5}
+.mark s{text-decoration:none;opacity:.5}
+
+.vig{position:absolute;inset:0;pointer-events:none;z-index:4;
+  background:radial-gradient(125% 82% at 50% 46%,transparent 48%,var(--vig) 100%)}
+
+main{position:relative;z-index:2;pointer-events:none}
+.beat{width:100%}
+
+/* ================= the ending ================= */
+.outro{position:fixed;left:0;top:0;height:100%;display:grid;align-content:center;
+  padding-inline:var(--pad);text-align:left;opacity:0;pointer-events:none;z-index:6}
+.outro.live{pointer-events:auto}
+.outro h1{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 104;font-weight:600;
+  font-size:clamp(1.4rem,min(3.2vw,5vh),2.5rem);letter-spacing:-.035em}
+.outro p{margin-top:.9rem;font-family:"JetBrains Mono",monospace;
+  font-size:clamp(.66rem,.76vw,.76rem);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--dim);font-weight:500}
+.outro nav{margin-top:clamp(1.8rem,5vh,3.4rem);display:flex;gap:1rem 1.8rem;flex-wrap:wrap;
+  max-width:min(760px,80vw)}
+.outro a{color:var(--ink);text-decoration:none;font-family:"JetBrains Mono",monospace;
+  font-size:clamp(.66rem,.76vw,.76rem);letter-spacing:.14em;text-transform:uppercase;
+  font-weight:500;padding-bottom:.3rem;border-bottom:1px solid var(--faint);
+  transition:border-color .4s ease}
+.outro a:hover,.outro a:focus-visible{border-color:var(--pal-blue)}
+.outro a:focus-visible{outline:1px solid var(--pal-blue);outline-offset:6px}
+
+.foot{position:relative;z-index:6;min-height:70vh;display:flex;align-items:flex-end;
+  padding:0 var(--pad) 7vh;text-align:left}
+.foot span{display:block}
+.foot-n{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 100;font-weight:500;
+  font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.foot-r{margin-top:.55rem;font-family:"JetBrains Mono",monospace;font-size:.62rem;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--dim);font-weight:500}
+.foot-c{margin-top:3rem;font-family:"JetBrains Mono",monospace;font-size:.6rem;
+  letter-spacing:.12em;color:var(--faint);font-weight:500}
+
+/* ================= cursor ================= */
+.cursor{position:fixed;left:0;top:0;width:84px;height:84px;margin:-42px 0 0 -42px;
+  border-radius:50%;border:1px solid #F5F5F2;background:rgba(0,7,13,.35);
+  box-shadow:0 2px 20px rgba(0,0,0,.4);display:grid;place-items:center;
+  pointer-events:none;z-index:300;opacity:0;will-change:transform}
+.cursor span{font-family:"JetBrains Mono",monospace;font-size:.5rem;letter-spacing:.2em;
+  text-transform:uppercase;color:#F5F5F2;text-align:center;line-height:1.7;user-select:none}
+@media (hover:hover) and (pointer:fine){ body,a{cursor:none} }
+@media (hover:none),(pointer:coarse){ .cursor{display:none} }
+
+/* ================= viewport progress border =================
+   One continuous stroke traces the viewport edge, top → right → bottom →
+   left (the native direction of an SVG rect path), reporting overall
+   document-scroll progress. Fixed to the viewport, never the page. */
+.progress-border{position:fixed;inset:0;width:100%;height:100%;z-index:50;
+  pointer-events:none;--pb-w:1.5px;transition:opacity .3s ease}
+/* the un-filled track stays visible as a thin constant frame — on a page
+   this tall, a near-invisible track means there's nothing to read "this is
+   a border that fills up" from until the visitor has scrolled a long way */
+.pb-track,.pb-fill{fill:none;stroke-width:var(--pb-w);vector-effect:non-scaling-stroke}
+.pb-track{stroke:var(--ink);opacity:.24}
+.pb-fill{stroke:var(--ink);stroke-linecap:round}
+body.areep-open .progress-border{opacity:0}
+@media (max-width:900px){.progress-border{--pb-w:1px}}
+
+/* ================= persistent signature ================= */
+.sigwrap{position:fixed;right:2.4vw;top:2.4vh;z-index:20}
+.sig{position:static;right:auto;top:auto;z-index:auto}
+
+/* ================= AREEP teaser ================= */
+.chap.teaser .chap-say{color:var(--dim)}
+.peek{pointer-events:none;background:none;border:0;padding:.55rem 0 0;
+  font-family:"JetBrains Mono",monospace;font-size:clamp(.66rem,.78vw,.78rem);
+  letter-spacing:.2em;text-transform:uppercase;color:var(--ink);opacity:0;
+  display:inline-flex;align-items:center;gap:.7em;
+  border-bottom:1px solid var(--faint);transition:border-color .4s ease,gap .4s ease}
+.peek b{font-weight:400;display:inline-block;transition:transform .5s cubic-bezier(.22,.61,.36,1)}
+.peek:hover,.peek:focus-visible{border-color:var(--pal-blue);gap:1.1em}
+.peek:hover b,.peek:focus-visible b{transform:rotate(90deg)}
+
+/* ================= iterate loop indicator ================= */
+.loop{position:absolute;inset:0;display:grid;align-content:end;
+  padding:0 var(--pad) clamp(4vh,7vh,9vh);opacity:0}
+.loop-track{position:relative;height:2px;background:var(--faint);opacity:.45;
+  max-width:min(560px,58vw);width:100%;margin:0 auto}
+.loop-fill{position:absolute;inset:0;background:var(--pal-blue);
+  transform-origin:0% 50%;transform:scaleX(0)}
+.loop-dot{position:absolute;top:50%;width:5px;height:5px;margin:-2.5px 0 0 -2.5px;
+  border-radius:50%;background:var(--faint)}
+.loop-steps{display:flex;justify-content:space-between;max-width:min(560px,58vw);
+  width:100%;margin:1rem auto 0}
+.loop-steps span{font-family:"JetBrains Mono",monospace;font-size:clamp(.56rem,.66vw,.66rem);
+  letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-weight:500}
+.peek:focus-visible{outline:1px solid var(--ink);outline-offset:6px}
+
+/* ================= AREEP: a project journey, same visual world =================
+   Dark, cinematic, thread-connected — a continuation of the portfolio, not a
+   separate light-mode dashboard. */
+.areep{position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;
+  background:#08090B;color:#F1F0EC;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .42s ease,visibility .42s;
+  --ar-crimson:var(--crimson);--ar-line:rgba(241,240,236,.14);
+  font-family:"Inter Tight",system-ui,sans-serif}
+.areep.open{opacity:1;visibility:visible;pointer-events:auto}
+
+.ar-head{flex:none;display:flex;justify-content:space-between;align-items:center;
+  padding:clamp(1.6rem,4.5vh,2.6rem) clamp(1.6rem,5vw,4.5rem);z-index:2}
+.ar-eyebrow{font-family:"JetBrains Mono",monospace;font-size:.6rem;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--ar-crimson);font-weight:500}
+.ar-close{background:none;border:0;padding:.2rem .1rem;font-family:"JetBrains Mono",monospace;
+  font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:#F1F0EC;
+  display:inline-flex;gap:.7em;align-items:center;border-bottom:1px solid var(--ar-line);
+  transition:border-color .35s ease}
+.ar-close:hover,.ar-close:focus-visible{border-color:#F1F0EC}
+.ar-close:focus-visible{outline:1px solid #F1F0EC;outline-offset:6px}
+
+.ar-scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;
+  padding:0 clamp(1.6rem,5vw,4.5rem) 6vh}
+.ar-content{position:relative;max-width:760px;margin:0 auto}
+
+/* AreebLanding is a full-bleed, edge-to-edge product demo (its own sticky
+   scroll-scrubbed sections need real viewport width) — undo the narrow
+   teaser-text column and its padding only for that content. */
+.ar-scroll--areeb{padding:0}
+.ar-content--areeb{max-width:none;margin:0}
+/* the bare `main{pointer-events:none}` rule above targets the site's own
+   decorative #track element — it also matches AreebLanding's semantic
+   <main>, silently blocking every click inside it (chat input included).
+   Re-enable pointer events for that one subtree only. */
+.areeb main{pointer-events:auto}
+
+/* AreebLanding renders its own fixed top-corner logo mark; push it below
+   this overlay's own header bar so the two pieces of fixed chrome (the
+   "In progress" eyebrow + Back to Work close button here, the AREEB mark
+   there) don't visually collide. */
+.areep .areeb-corner-mark{top:6.5rem}
+@media (max-width:820px){ .areep .areeb-corner-mark{top:5.5rem} }
+
+.ar-thread{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.ar-thread path{fill:none;stroke:var(--ar-crimson);stroke-width:2px;
+  stroke-linecap:round;vector-effect:non-scaling-stroke;opacity:.75}
+
+.ar-hero{position:relative;z-index:1;padding-top:8vh;min-height:38vh;
+  display:flex;flex-direction:column;justify-content:center}
+.ar-name{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 112;font-weight:700;
+  font-size:clamp(3.4rem,min(11vw,17vh),9rem);letter-spacing:-.05em;line-height:.86}
+.ar-line{margin-top:clamp(1.2rem,3vh,2.2rem);font-family:"Archivo",sans-serif;
+  font-variation-settings:"wdth" 92;font-weight:400;
+  font-size:clamp(1.1rem,min(2.4vw,3.4vh),1.9rem);letter-spacing:-.02em;line-height:1.35;
+  max-width:26ch;color:#85878B}
+.ar-line em{font-style:italic;color:#F1F0EC}
+
+.ar-journey{position:relative;z-index:1;padding:10vh 0;display:flex;flex-direction:column;
+  gap:14vh}
+.ar-stage{display:flex;align-items:baseline;gap:clamp(1rem,3vw,2rem)}
+.ar-stage-no{font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.2em;
+  color:rgba(241,240,236,.35);flex:none}
+.ar-stage-label{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 100;
+  font-weight:600;font-size:clamp(1.8rem,5vw,3.2rem);letter-spacing:-.02em;color:#85878B;
+  transition:color .4s ease}
+.ar-stage.done .ar-stage-label{color:#F1F0EC}
+.ar-stage.now .ar-stage-label{color:var(--ar-crimson)}
+.ar-stage-mark{width:9px;height:9px;border-radius:50%;flex:none;
+  background:rgba(241,240,236,.2)}
+.ar-stage.done .ar-stage-mark{background:#F1F0EC}
+.ar-stage.now .ar-stage-mark{background:var(--ar-crimson);position:relative}
+.ar-stage.now .ar-stage-mark::after{content:"";position:absolute;inset:-5px;
+  border-radius:50%;border:1px solid var(--ar-crimson);opacity:.5;
+  animation:arpulse 2.4s ease-out infinite}
+@keyframes arpulse{0%{transform:scale(.6);opacity:.6}100%{transform:scale(1.8);opacity:0}}
+
+.ar-foot{position:relative;z-index:1;padding:6vh 0 2vh;display:flex;flex-direction:column;
+  align-items:flex-start;gap:1.6rem}
+.ar-soon{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 92;
+  font-size:clamp(1.1rem,min(2vw,2.8vh),1.6rem);letter-spacing:-.015em;line-height:1.4;
+  color:#85878B}
+.ar-soon b{display:block;font-weight:400;color:#F1F0EC}
+.ar-soon em{font-style:italic;color:var(--ar-crimson)}
+.ar-back-cta{background:none;border:0;padding:0;font-family:"JetBrains Mono",monospace;
+  font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:#F1F0EC;
+  border-bottom:1px solid var(--ar-line);padding-bottom:.35rem;
+  transition:border-color .35s ease}
+.ar-back-cta:hover,.ar-back-cta:focus-visible{border-color:var(--ar-crimson)}
+.ar-mark{font-family:"JetBrains Mono",monospace;font-size:.62rem;letter-spacing:.24em;
+  text-transform:uppercase;color:rgba(241,240,236,.35);font-weight:500;white-space:nowrap}
+
+@media (hover:hover) and (pointer:fine){ .areep,.areep button{cursor:none} }
+@media (max-width:820px){
+  .ar-name{font-size:clamp(2.6rem,14vw,4.6rem)}
+  .ar-journey{gap:9vh}
+  .ar-stage-label{font-size:clamp(1.5rem,8vw,2.2rem)}
+  .ar-thread path{stroke-width:1.5px}
+}
+body.reduced .areep{position:fixed}
+body.reduced .ar-scroll{overflow-y:visible}
+
+/* ================= small viewports: recompose, don't shrink =================
+   The beside-the-device column becomes a band above it; the device drops
+   into the lower middle; the fragment moves under the chapter text. */
+@media (max-width:900px){
+  :root{--pad:7vw;--band:34vh}
+  .dev-ipad{width:min(1300px,104vw,44vh)}
+  .dev-design,.dev-ide{width:min(1300px,104vw,56vh)}
+  .dev-phone{width:min(560px,70vw,29vh)}
+  .z-bot{height:26vh}
+  .chap{width:100%;top:0;height:56vh;align-content:center}
+  .chap-say{max-width:100%}
+  .frag{right:var(--pad);top:auto;bottom:7vh;transform:none;width:min(300px,52vw,30vh)}
+  .frag.wide{width:min(360px,62vw,28vh)}
+  .word ul{gap:.5rem 1.2rem}
+  .gapwrap{padding:7vh var(--pad);row-gap:clamp(.8rem,2.5vh,1.6rem)}
+  .mark{left:6vw;bottom:2.6vh}
+  .foot{min-height:56vh;padding-bottom:6vh}
+}
+@media (max-width:600px){
+  .sig{right:5vw;gap:.22rem}
+  .sig-n{font-size:.7rem} .sig-r{font-size:.52rem} .sig-cv{font-size:.52rem}
+}
+/* landscape phones: height is scarce, so the column composition returns */
+@media (max-height:520px) and (orientation:landscape){
+  :root{--band:26vh}
+  .dev-ipad{width:min(1300px,60vw,60vh)}
+  .dev-design,.dev-ide{width:min(1300px,60vw,72vh)}
+  .dev-phone{width:min(560px,50vw,29vh)}
+  .chap{width:56vw;height:100%}
+  .frag{top:50%;bottom:auto;transform:translateY(-50%);width:min(300px,30vw,46vh)}
+  .frag.wide{width:min(380px,36vw,80vh)}
+  .foot{min-height:92vh}
+}
+
+/* ================= no-motion fallback ================= */
+body.reduced .stage{position:relative;height:auto;overflow:visible}
+body.reduced .cam{position:relative;inset:auto}
+body.reduced main,body.reduced .vig,body.reduced .cursor,body.reduced .mark{display:none}
+body.reduced .dev{position:relative;left:auto;top:auto;transform:none;opacity:1;width:100%;margin:6vh 0}
+body.reduced .band{position:static;overflow:visible;-webkit-mask-image:none;mask-image:none}
+body.reduced .notes{opacity:1}
+body.reduced .fault,body.reduced .tap,body.reduced .nib{display:none}
+body.reduced .type{position:relative;padding:10vh var(--pad)}
+body.reduced .line,body.reduced .word,body.reduced .chap,body.reduced .frag,
+body.reduced .gapwrap,body.reduced .caret{position:relative;left:auto;top:auto;right:auto;
+  bottom:auto;transform:none;opacity:1;width:auto;height:auto;display:block;
+  margin-bottom:7vh;text-align:left;padding-inline:0}
+body.reduced .line p{font-size:1.6rem;max-width:100%}
+body.reduced .word h2{font-size:2.6rem}
+body.reduced .chap-name{font-size:2.6rem;opacity:1}
+body.reduced .chap-no,body.reduced .chap-say,body.reduced .chap-tags b,
+body.reduced .word ul,body.reduced .bridge b,body.reduced .arrow{opacity:1}
+body.reduced .frag{width:180px}
+body.reduced .bridge{display:flex;flex-wrap:wrap;flex-direction:row;gap:1rem}
+body.reduced .outro{position:relative;left:auto;top:auto;height:auto;transform:none;
+  opacity:1;margin:12vh 0;padding-inline:var(--pad);pointer-events:auto}
+body.reduced .sig{position:relative;right:auto;top:auto;opacity:1;mix-blend-mode:normal;
+  align-items:flex-start;text-align:left;padding:5vh var(--pad) 0}

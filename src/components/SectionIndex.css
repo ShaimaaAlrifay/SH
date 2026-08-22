@@ -1,0 +1,9 @@
+.section-index{position:fixed;right:2vw;top:50%;transform:translateY(-50%);
+  z-index:22;pointer-events:none}
+.section-index .line-sidebar{pointer-events:auto}
+.section-index .line-sidebar__label{font-family:"JetBrains Mono",monospace;
+  letter-spacing:.14em;text-transform:uppercase;font-weight:500;white-space:nowrap}
+.section-index .line-sidebar__index{letter-spacing:.1em}
+
+@media (hover:hover) and (pointer:fine){ .section-index button{cursor:none} }
+@media (max-width:900px){ .section-index{display:none} }
