@@ -4,6 +4,13 @@ import { Send, ArrowDown, Download, Plus, FileText } from "lucide-react";
 import { assetUrl } from "../lib/assetUrl";
 import "../areeb-tailwind.css";
 
+/* The chat/PRD proxy (server.js) can't live on GitHub Pages — that's
+   static hosting only, no Node process. VITE_API_URL points the built
+   site at wherever server.js is actually deployed (Render, etc.);
+   .env.production carries the real value into the GitHub Actions build.
+   Falling back to localhost:3001 keeps local dev working unchanged. */
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3001";
+
 /* ============================================================
    AREEB — black + white + stars.
    No brand colors for now, per the temporary design system.
@@ -838,7 +845,7 @@ export default function AreebLanding() {
       { id: cardId, role: "assistant", content: "جمعت المتطلبات من المحادثة وحوّلتها إلى PRD.", artifact: { status: "generating" } },
     ]);
     try {
-      const response = await fetch("http://localhost:3001/api/generate-prd", {
+      const response = await fetch(`${API_BASE}/api/generate-prd`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: history }),
@@ -877,7 +884,7 @@ export default function AreebLanding() {
     orbTimers.current.push(setTimeout(() => setOrbState("processing"), 550));
     const historyForApi = nextHistory.map(({ role, content }) => ({ role, content }));
     try {
-      const response = await fetch("http://localhost:3001/api/chat", {
+      const response = await fetch(`${API_BASE}/api/chat`, {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           model: "claude-sonnet-4-6",

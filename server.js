@@ -366,7 +366,9 @@ app.post('/api/chat', async (req, res) => {
   res.status(200).json(toAnthropicShape(FRIENDLY_FALLBACK))
 })
 
-const PORT = 3001
+// Render (and most Node hosts) assign the port dynamically via $PORT —
+// only fall back to 3001 for local dev, where nothing sets that env var.
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
-  console.log(`Areeb chat proxy listening on http://localhost:${PORT}`)
+  console.log(`Areeb chat proxy listening on port ${PORT}`)
 })
