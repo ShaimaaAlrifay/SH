@@ -6,8 +6,9 @@
 import { View, Text, Svg, Path, Image } from "@react-pdf/renderer";
 import { C, prdStyles } from "./prdStyles";
 import { FONT } from "./prdFonts";
+import { assetUrl } from "./assetUrl";
 
-const AREEB_LOGO_URL = "/assets/areeb/logo.png";
+const AREEB_LOGO_URL = assetUrl("assets/areeb/logo.png");
 
 /* ---------- mixed-script text ----------
    Every base text style in this document (paragraph, tableCell, ...) is

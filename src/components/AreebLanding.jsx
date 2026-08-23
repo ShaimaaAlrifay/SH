@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import * as THREE from "three";
 import { Send, ArrowDown, Download, Plus, FileText } from "lucide-react";
+import { assetUrl } from "../lib/assetUrl";
 import "../areeb-tailwind.css";
 
 /* ============================================================
@@ -479,8 +480,8 @@ function MiniOrb({ state = "idle", size = 26 }) {
    animated=true plays a soft resolve-in the first time it
    scrolls into view.
    ============================================================ */
-const AREEB_VIDEO_SRC = "/assets/areeb/logo-animation.mp4";
-const AREEB_LOGO_SRC = "/assets/areeb/logo.png";
+const AREEB_VIDEO_SRC = assetUrl("assets/areeb/logo-animation.mp4");
+const AREEB_LOGO_SRC = assetUrl("assets/areeb/logo.png");
 
 function AreebMark({ size = 32, animated = false, className = "" }) {
   const wrapRef = useRef(null);

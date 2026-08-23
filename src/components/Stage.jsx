@@ -1,10 +1,12 @@
+import { assetUrl } from '../lib/assetUrl'
+
 export default function Stage() {
   return (
     <div className="stage" aria-hidden="true">
       <div className="cam">
 
         <div className="dev dev-ipad" id="ipad">
-          <img src="/assets/img/device-ipad.webp" alt="" />
+          <img src={assetUrl('assets/img/device-ipad.webp')} alt="" />
           <div className="canvas">
             <div className="band" id="bd1" style={{left: '0%', width: '26.5%'}}><div className="ink" style={{left: '0%', width: '377.36%'}}></div></div>
             <div className="band" id="bd2" style={{left: '26.5%', width: '27%'}}><div className="ink" style={{left: '-98.15%', width: '370.37%'}}></div></div>
@@ -16,15 +18,15 @@ export default function Stage() {
         </div>
 
         <div className="dev dev-design" id="design">
-          <img src="/assets/img/device-design.webp" alt="" />
+          <img src={assetUrl('assets/img/device-design.webp')} alt="" />
         </div>
 
         <div className="dev dev-ide" id="ide">
-          <img src="/assets/img/device-ide.webp" alt="" />
+          <img src={assetUrl('assets/img/device-ide.webp')} alt="" />
         </div>
 
         <div className="dev dev-phone" id="phone">
-          <img src="/assets/img/device-phone.webp" alt="" /><div className="tap" id="tap"></div><div className="fault" id="fault"></div>
+          <img src={assetUrl('assets/img/device-phone.webp')} alt="" /><div className="tap" id="tap"></div><div className="fault" id="fault"></div>
         </div>
       </div>
 
@@ -90,7 +92,7 @@ export default function Stage() {
           <p className="chap-say">Dense operational data, <em>made calm enough to act on.</em></p>
           <div className="chap-tags"><b>Product</b><b>UX</b><b>Engineering</b></div>
         </div>
-        <img className="frag" id="f1" src="/assets/img/frag-1.webp" alt="" />
+        <img className="frag" id="f1" src={assetUrl('assets/img/frag-1.webp')} alt="" />
 
         <div className="chap chap-b" id="w2">
           <span className="chap-no">07 / Work — خطوة مسار</span>
@@ -98,7 +100,7 @@ export default function Stage() {
           <p className="chap-say">Compliance and certification, <em>made legible.</em></p>
           <div className="chap-tags"><b>Product</b><b>UX</b><b>Frontend</b></div>
         </div>
-        <img className="frag wide" id="f2" src="/assets/img/frag-2.webp" alt="" />
+        <img className="frag wide" id="f2" src={assetUrl('assets/img/frag-2.webp')} alt="" />
 
         <div className="chap chap-c" id="w3">
           <span className="chap-no">07 / Work — تطمّن</span>
@@ -106,7 +108,7 @@ export default function Stage() {
           <p className="chap-say">Slower, softer — <em>built for a harder day.</em></p>
           <div className="chap-tags"><b>Product</b><b>UX</b><b>Engineering</b></div>
         </div>
-        <img className="frag" id="f3" src="/assets/img/frag-3.webp" alt="" />
+        <img className="frag" id="f3" src={assetUrl('assets/img/frag-3.webp')} alt="" />
 
         <div className="chap teaser" id="w4">
           <span className="chap-no">07 / Work — Next</span>

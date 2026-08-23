@@ -18,8 +18,10 @@
   --vig:rgba(0,0,0,.66);
   --pad:8vw;
   --band:30vh;
-  --sketch:url("/assets/img/sketch.webp");
-  --notes:url("/assets/img/notes.webp");
+  /* --sketch / --notes: set at runtime in main.jsx via assetUrl() —
+     plain CSS can't read Vite's base path (vite.config.js base:"/SH/"),
+     so a hardcoded url("/assets/...") here would 404 under the GitHub
+     Pages subpath the same way the JSX <img> paths did. */
   --sweep:linear-gradient(to bottom,#000 0%,#000 33.34%,rgba(0,0,0,0) 41%,rgba(0,0,0,0) 100%);
   /* dark signature gradient — desaturated, editorial, used sparingly:
      toggle, progress border, small accents, never the whole interface */

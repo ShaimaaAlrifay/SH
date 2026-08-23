@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { assetUrl } from '../lib/assetUrl'
 import './HeroArch.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -163,21 +164,21 @@ export default function HeroArch() {
         <div className="hl hl-bg" ref={bgOuter}>
           <div className="hl-portal" ref={bgPortal}>
             <div className="hl-idle" ref={bgIdle}>
-              <img src="/assets/img/hero-bg.webp" alt="" />
+              <img src={assetUrl('assets/img/hero-bg.webp')} alt="" />
             </div>
           </div>
         </div>
         <div className="hl hl-fg" ref={fgOuter}>
           <div className="hl-portal" ref={fgPortal}>
             <div className="hl-idle" ref={fgIdle}>
-              <img src="/assets/img/hero-fg.webp" alt="" />
+              <img src={assetUrl('assets/img/hero-fg.webp')} alt="" />
             </div>
           </div>
         </div>
         <div className="hl hl-character" ref={charOuter}>
           <div className="hl-portal" ref={charPortal}>
             <div className="hl-idle" ref={charIdle}>
-              <img src="/assets/img/hero-character.webp" alt="" />
+              <img src={assetUrl('assets/img/hero-character.webp')} alt="" />
             </div>
           </div>
         </div>

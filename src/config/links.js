@@ -1,9 +1,11 @@
+import { assetUrl } from '../lib/assetUrl'
+
 // Edit these five values — every social/resume link on the page reads from here.
 const LINKEDIN_URL = 'LINKEDIN_URL'
 const GITHUB_URL = 'GITHUB_URL'
 const X_URL = 'X_URL'
 const EMAIL_ADDRESS = 'EMAIL_ADDRESS'
-const RESUME_PDF = '/assets/Shaimaa-Alrifay-Resume.pdf'
+const RESUME_PDF = assetUrl('assets/Shaimaa-Alrifay-Resume.pdf')
 
 export const LINKS = {
   linkedin: LINKEDIN_URL,

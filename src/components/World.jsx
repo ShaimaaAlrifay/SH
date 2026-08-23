@@ -1,4 +1,5 @@
 import { LINKS } from '../config/links'
+import { assetUrl } from '../lib/assetUrl'
 import RedThread from './RedThread'
 import './World.css'
 
@@ -41,7 +42,7 @@ export default function World() {
 
           <div className="work-list">
             <article className="work-item reveal">
-              <div className="work-media"><img src="/assets/img/frag-1.webp" alt="" loading="lazy" /></div>
+              <div className="work-media"><img src={assetUrl('assets/img/frag-1.webp')} alt="" loading="lazy" /></div>
               <div className="work-meta">
                 <h3>Rakaya</h3>
                 <p>
@@ -52,7 +53,7 @@ export default function World() {
             </article>
 
             <article className="work-item reveal">
-              <div className="work-media wide"><img src="/assets/img/frag-2.webp" alt="" loading="lazy" /></div>
+              <div className="work-media wide"><img src={assetUrl('assets/img/frag-2.webp')} alt="" loading="lazy" /></div>
               <div className="work-meta">
                 <h3 dir="rtl" className="ar">خطوة مسار</h3>
                 <p>
@@ -63,7 +64,7 @@ export default function World() {
             </article>
 
             <article className="work-item reveal">
-              <div className="work-media"><img src="/assets/img/frag-3.webp" alt="" loading="lazy" /></div>
+              <div className="work-media"><img src={assetUrl('assets/img/frag-3.webp')} alt="" loading="lazy" /></div>
               <div className="work-meta">
                 <h3 dir="rtl" className="ar">تطمّن</h3>
                 <p>
