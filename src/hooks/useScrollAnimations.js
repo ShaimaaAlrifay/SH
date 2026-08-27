@@ -29,6 +29,14 @@ export function useScrollAnimations(containerRef) {
         return undefined
       }
       ScrollTrigger.config({ ignoreMobileResize: true })
+      /* iOS/Android momentum-scrolling reports touch-driven scroll position
+         in bursts rather than smoothly, which desyncs scrubbed/pinned
+         ScrollTrigger timelines and reads as the page "jumping" instead of
+         gliding — this is GSAP's own documented fix (normalizeScroll),
+         complementary to ignoreMobileResize above (that one only covers
+         the address-bar-resize case, not momentum-scroll jitter itself).
+         No-ops harmlessly on desktop/mouse-wheel input. */
+      ScrollTrigger.normalizeScroll(true)
 
       const track = document.getElementById('track')
       const sections = BEATS.map((b) => {
