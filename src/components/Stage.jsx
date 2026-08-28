@@ -111,12 +111,10 @@ export default function Stage() {
         <img className="frag" id="f3" src={assetUrl('assets/img/frag-3.webp')} alt="" />
 
         <div className="chap teaser" id="w4">
-          <span className="chap-no">07 / Work — Next</span>
+          <span className="chap-no">07 / Work — Areep</span>
           <h2 className="chap-name">Areep</h2>
-          <p className="chap-say">Something is <em>taking shape.</em></p>
-          <div className="chap-tags">
-            <button className="peek" id="peek" aria-haspopup="dialog">Peek inside <b>+</b></button>
-          </div>
+          <p className="chap-say">Turning client conversations into <em>clear PRDs.</em></p>
+          <div className="chap-tags"><b>AI</b><b>Product</b><b>Full-stack</b></div>
         </div>
 
         <div className="line at-l t-md" id="t18"><p>Different problems. Different users. Different contexts.</p></div>

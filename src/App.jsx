@@ -4,7 +4,6 @@ import Stage from './components/Stage'
 import Outro from './components/Outro'
 import Signature from './components/Signature'
 import RunningMark from './components/RunningMark'
-import Areep from './components/Areep'
 import Footer from './components/Footer'
 import Cursor from './components/Cursor'
 import SceneBackground from './components/SceneBackground'
@@ -28,7 +27,6 @@ export default function App() {
       <SectionIndex />
       <Signature />
       <RunningMark />
-      <Areep />
       <main id="track" aria-hidden="true"></main>
       <Footer />
       <Cursor />

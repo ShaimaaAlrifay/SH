@@ -266,17 +266,6 @@ export function useScrollAnimations(containerRef) {
         }
       })
       say(b7, '#t18', 15.0, 2.2, 20)
-      /* the teaser is only clickable while it is actually on screen */
-      const peekEl = document.getElementById('peek')
-      ScrollTrigger.create({
-        trigger: '#beat-work',
-        start: 'top top',
-        end: 'bottom top',
-        onUpdate: function (self) {
-          const live = self.progress > 0.6 && self.progress < 0.85
-          peekEl.style.pointerEvents = live ? 'auto' : 'none'
-        },
-      })
 
       /* ============ 08 · THINK ============ */
       const b8 = beat('think')
@@ -409,7 +398,7 @@ export function useScrollAnimations(containerRef) {
           lbl.innerHTML = 'Scroll<br>&#8595;'
           gsap.to(cur, { scale: 1, duration: 0.35, ease: 'power2.out' })
         }
-        const hoverables = document.querySelectorAll('a,.mood,.peek,.ar-close')
+        const hoverables = document.querySelectorAll('a,.mood')
         hoverables.forEach(function (a) {
           a.addEventListener('mouseenter', onEnter)
           a.addEventListener('mouseleave', onLeave)
