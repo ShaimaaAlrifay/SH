@@ -39,6 +39,9 @@
   --proj-tutmain:var(--pal-violet);
   --proj-areep:var(--pal-blue);
   --proj-areep-2:var(--pal-coral);
+  --proj-shhhhh:var(--pal-coral);
+  --proj-robinfood:var(--pal-orange);
+  --proj-dar:#3FA79A;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{background:var(--void)}
@@ -136,8 +139,23 @@ img{display:block;max-width:none}
   letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-weight:500}
 
 /* --- project chapters: a reserved left column, fragment in a reserved right one --- */
-.chap{position:absolute;left:0;top:0;height:100%;width:min(720px,42vw);
-  display:grid;align-content:center;padding-inline:var(--pad);text-align:left}
+/* the text column and its product shot share one flex row so they're
+   vertically centred against EACH OTHER, not independently against the
+   viewport — a tall two-line name plus tagline plus tags optically centres
+   higher than a single image's own dead-centre would, which used to read
+   as the image sitting low/off to the side instead of level with the text */
+/* `justify-content:flex-start` + a capped `gap`, not `space-between`: with
+   space-between, once both the text column and the image hit their own
+   max-width caps, every extra pixel of a wide viewport became pure empty
+   space stretching between them instead of shrinking the gap or growing
+   the image — the wider the screen, the bigger and more obviously
+   "spaced out" that gap looked. A `clamp()` gap keeps a fixed, modest
+   distance regardless of viewport width, so the image sits right next to
+   the text instead of pinned to the far edge of the row. */
+.chap-row{position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-start;
+  gap:clamp(1.5rem,3vw,3rem);padding-inline-start:var(--pad);padding-inline-end:var(--pad)}
+.chap{width:min(720px,42vw);flex:none;
+  display:grid;text-align:left}
 .chap-no{font-family:"JetBrains Mono",monospace;font-size:clamp(.6rem,.7vw,.72rem);
   letter-spacing:.24em;text-transform:uppercase;color:var(--accent-2);font-weight:500;opacity:0}
 .chap-name{margin-top:clamp(.8rem,2vh,1.4rem);font-family:"Archivo",sans-serif;
@@ -173,13 +191,87 @@ img{display:block;max-width:none}
 .chap-c .chap-no{color:var(--proj-tutmain)}
 .chap-c .chap-tags>b{border-color:color-mix(in srgb,var(--proj-tutmain) 34%,transparent);color:var(--proj-tutmain)}
 .chap-c .frag{filter:drop-shadow(0 0 46px color-mix(in srgb,var(--proj-tutmain) 16%,transparent))}
-/* the chapter column ends at 54vw and the margin is 8vw, so the fragment has
-   38vw of clear space; centred within that space (not flush to the edge)
-   so it reads as a real showcase piece beside the text, not a corner crop. */
-.frag{position:absolute;right:calc(var(--pad) + 4vw);top:50%;width:min(560px,34vw,58vh);height:auto;
-  transform:translateY(-50%);opacity:0;will-change:transform,opacity}
-/* the one landscape plate needs more width to carry equal visual weight */
-.frag.wide{width:min(640px,38vw,86vh)}
+.chap-areep .chap-no{color:var(--proj-areep)}
+.chap-areep .chap-tags>b{border-color:color-mix(in srgb,var(--proj-areep) 34%,transparent);color:var(--proj-areep)}
+.chap-shhhhh .chap-no{color:var(--proj-shhhhh)}
+.chap-shhhhh .chap-tags>b{border-color:color-mix(in srgb,var(--proj-shhhhh) 34%,transparent);color:var(--proj-shhhhh)}
+.chap-shhhhh .frag{filter:drop-shadow(0 0 46px color-mix(in srgb,var(--proj-shhhhh) 16%,transparent))}
+.chap-robinfood .chap-no{color:var(--proj-robinfood)}
+.chap-robinfood .chap-tags>b{border-color:color-mix(in srgb,var(--proj-robinfood) 34%,transparent);color:var(--proj-robinfood)}
+.chap-robinfood .frag{filter:drop-shadow(0 0 46px color-mix(in srgb,var(--proj-robinfood) 16%,transparent))}
+.chap-dar .chap-no{color:var(--proj-dar)}
+.chap-dar .chap-tags>b{border-color:color-mix(in srgb,var(--proj-dar) 34%,transparent);color:var(--proj-dar)}
+.chap-dar .frag{filter:drop-shadow(0 0 46px color-mix(in srgb,var(--proj-dar) 16%,transparent))}
+/* project chapter name links inherit the surrounding heading's type —
+   no default link-blue, an underline only on hover/focus so the scroll
+   sequence doesn't read as "a list of links" until you're actually near one */
+/* `.type` (this whole scroll-driven text layer) is `pointer-events:none`
+   by design — every other element in it is purely decorative narrative
+   text. The project name itself is plain text now (not a link — only the
+   explicit "Visit site" button below navigates anywhere). That button is
+   the one real interactive element inside `.type`, so it's the one that
+   needs to opt back in. `pointer-events:auto` is intentionally NOT set
+   here as a static rule: all seven .chap-row's occupy the identical
+   position:absolute viewport rect at once (only distinguished by
+   opacity), so a button that's always clickable would still be sitting
+   directly underneath whichever chapter comes later in DOM order and
+   intercept clicks meant for every other chapter (confirmed live —
+   clicking one chapter's visible button opened a DIFFERENT, later
+   chapter's link instead). Same fix this codebase already uses for
+   .outro (see the `.live` class toggled by scroll position in
+   useScrollAnimations.js) — here it's the WORK beat's own scrub timeline
+   (already perfectly in sync with each chapter's opacity window) that
+   flips pointer-events on/off via `.set()`, not a separate ScrollTrigger.
+   Default state is none; the timeline is the only thing that ever turns a
+   specific chapter's button on, and only for as long as that chapter is
+   actually visible. */
+/* explicit "go see it" CTA under each project's tags — a bordered pill,
+   same frosted-pill language as .chap-tags>b right above it, just bigger
+   and clickable, so it reads as a deliberate small button rather than
+   the tags' passive labels. `width:fit-content` matters: `.chap` is a
+   CSS grid, whose items stretch to the column's full width by default —
+   without it, the previous plain-underline version stretched into one
+   long stray-looking line across the whole text column instead of
+   hugging the words, which was the actual "looks bad" bug here, not
+   just a style preference. */
+.chap-visit{pointer-events:none;margin-top:clamp(1rem,2.6vh,1.8rem);display:inline-flex;width:fit-content;
+  align-items:center;gap:.5em;color:var(--ink);text-decoration:none;
+  font-family:"JetBrains Mono",monospace;font-size:clamp(.6rem,.7vw,.7rem);
+  letter-spacing:.14em;text-transform:uppercase;font-weight:500;
+  padding:.6em 1.15em;border:1px solid var(--border);border-radius:999px;
+  background:color-mix(in srgb,var(--void) 55%,transparent);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  opacity:0;transition:border-color .3s ease,color .3s ease,gap .3s ease}
+.chap-visit b{font-weight:400;display:inline-block;transition:transform .5s cubic-bezier(.22,.61,.36,1)}
+.chap-visit:hover,.chap-visit:focus-visible{border-color:var(--crimson);color:var(--crimson);gap:.75em}
+.chap-visit:hover b,.chap-visit:focus-visible b{transform:translateX(.15em)}
+.chap-visit:focus-visible{outline:1px solid var(--crimson);outline-offset:4px}
+/* One SQUARE box for every product shot, sized with `vmin` so it stays
+   square on any viewport (not vw/vh separately, which would stretch it).
+   A square is the one box shape that treats both source families fairly:
+   the phone mockups run ~0.75 (tall) and the monitor mockups run ~1.33
+   (wide) — near-exact reciprocals of each other — so inside a square box
+   with object-fit:contain, each ends up filling essentially the same
+   fraction of the box (~75%), which means both the outer FRAME (identical
+   for all seven, so the layout rhythm never jumps between chapters) and
+   the visible artwork's own size read as equal. Two earlier attempts each
+   solved only one half of this: a same-size box alone still let a wide
+   image fill more of it than a tall one (looked bigger); matching each
+   image's own rendered area alone kept the box shape swinging between
+   portrait and landscape every other chapter (looked "different", not
+   just differently-shaped). This is the one setup with no such trade-off. */
+/* Sized by `vw`/`vh`, not `vmin`: the real constraint here is specifically
+   HORIZONTAL room (the fixed sidebar nav sitting at the right edge), and
+   `vmin` tracks whichever of width/height is smaller — on a normal
+   laptop aspect ratio that's usually the HEIGHT, so it was blind to how
+   little horizontal space was actually left once the text column, the
+   gap, and the sidebar's own reserved zone were all accounted for.
+   Confirmed live across real laptop sizes (1280-1512px logical width,
+   the range MacBook screens report) that the old vmin-based cap
+   genuinely overlapped the sidebar by 15-28px; this formula was
+   recalibrated against those exact measurements, not guessed. */
+.frag{width:min(640px,30vw,55vh);height:min(640px,30vw,55vh);object-fit:contain;
+  flex:none;opacity:0;will-change:transform,opacity}
 
 /* --- THE GAP: three reserved rows. IDEA and PRODUCT can never enter the
        middle region because the grid gives it its own track. --- */
@@ -262,7 +354,7 @@ main{position:relative;z-index:2;pointer-events:none}
   letter-spacing:.12em;color:var(--faint);font-weight:500}
 
 /* ================= cursor ================= */
-.cursor{position:fixed;left:0;top:0;width:84px;height:84px;margin:-42px 0 0 -42px;
+.cursor{position:fixed;left:0;top:0;width:56px;height:56px;margin:-28px 0 0 -28px;
   border-radius:50%;border:1px solid #F5F5F2;background:rgba(0,7,13,.35);
   box-shadow:0 2px 20px rgba(0,0,0,.4);display:grid;place-items:center;
   pointer-events:none;z-index:300;opacity:0;will-change:transform}
@@ -289,9 +381,6 @@ main{position:relative;z-index:2;pointer-events:none}
 .sigwrap{position:fixed;right:2.4vw;top:2.4vh;z-index:20}
 .sig{position:static;right:auto;top:auto;z-index:auto}
 
-/* ================= AREEP teaser ================= */
-.chap.teaser .chap-say{color:var(--dim)}
-
 /* ================= iterate loop indicator ================= */
 .loop{position:absolute;inset:0;display:grid;align-content:end;
   padding:0 var(--pad) clamp(4vh,7vh,9vh);opacity:0}
@@ -315,10 +404,10 @@ main{position:relative;z-index:2;pointer-events:none}
   .dev-design,.dev-ide{width:min(1300px,104vw,56vh)}
   .dev-phone{width:min(560px,70vw,29vh)}
   .z-bot{height:26vh}
-  .chap{width:100%;top:0;height:56vh;align-content:center}
+  .chap-row{flex-direction:column;justify-content:center;gap:3vh;
+    padding-inline:var(--pad);padding-block:6vh}
+  .chap{width:100%}
   .chap-say{max-width:100%}
-  .frag{right:var(--pad);top:auto;bottom:7vh;transform:none;width:min(300px,52vw,30vh)}
-  .frag.wide{width:min(360px,62vw,28vh)}
   .word ul{gap:.5rem 1.2rem}
   .gapwrap{padding:7vh var(--pad);row-gap:clamp(.8rem,2.5vh,1.6rem)}
   .mark{left:6vw;bottom:2.6vh}
@@ -334,9 +423,8 @@ main{position:relative;z-index:2;pointer-events:none}
   .dev-ipad{width:min(1300px,60vw,60vh)}
   .dev-design,.dev-ide{width:min(1300px,60vw,72vh)}
   .dev-phone{width:min(560px,50vw,29vh)}
-  .chap{width:56vw;height:100%}
-  .frag{top:50%;bottom:auto;transform:translateY(-50%);width:min(300px,30vw,46vh)}
-  .frag.wide{width:min(380px,36vw,80vh)}
+  .chap-row{flex-direction:row}
+  .chap{width:56vw}
   .foot{min-height:92vh}
 }
 
@@ -349,14 +437,14 @@ body.reduced .band{position:static;overflow:visible;-webkit-mask-image:none;mask
 body.reduced .notes{opacity:1}
 body.reduced .fault,body.reduced .tap,body.reduced .nib{display:none}
 body.reduced .type{position:relative;padding:10vh var(--pad)}
-body.reduced .line,body.reduced .word,body.reduced .chap,body.reduced .frag,
+body.reduced .line,body.reduced .word,body.reduced .chap-row,body.reduced .chap,body.reduced .frag,
 body.reduced .gapwrap,body.reduced .caret{position:relative;left:auto;top:auto;right:auto;
-  bottom:auto;transform:none;opacity:1;width:auto;height:auto;display:block;
+  bottom:auto;inset:auto;transform:none;opacity:1;width:auto;height:auto;display:block;
   margin-bottom:7vh;text-align:left;padding-inline:0}
 body.reduced .line p{font-size:1.6rem;max-width:100%}
 body.reduced .word h2{font-size:2.6rem}
 body.reduced .chap-name{font-size:2.6rem;opacity:1}
-body.reduced .chap-no,body.reduced .chap-say,body.reduced .chap-tags b,
+body.reduced .chap-no,body.reduced .chap-say,body.reduced .chap-tags b,body.reduced .chap-visit,
 body.reduced .word ul,body.reduced .bridge b,body.reduced .arrow{opacity:1}
 body.reduced .frag{width:180px}
 body.reduced .bridge{display:flex;flex-wrap:wrap;flex-direction:row;gap:1rem}

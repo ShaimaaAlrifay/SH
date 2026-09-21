@@ -11,7 +11,7 @@ const BEATS = [
   ['build', 560, '04', 'Build'],
   ['test', 440, '05', 'Test'],
   ['iterate', 200, '06', 'Iterate'],
-  ['work', 760, '07', 'Work'],
+  ['work', 1220, '07', 'Work'],
   ['think', 520, '08', 'Think'],
   ['gap', 600, '09', 'The Gap'],
   ['next', 380, '10', 'Next'],
@@ -236,15 +236,30 @@ export function useScrollAnimations(containerRef) {
 
       /* ============ 07 · WORK ============ */
       const b7 = beat('work')
-      /* two chapters have no fragment yet, so they run as pure typography */
       ;[
         ['#w1', '#f1'],
         ['#w2', '#f2'],
         ['#w3', '#f3'],
-        ['#w4', null],
+        ['#w4', '#f4'],
+        ['#w5', '#f5'],
+        ['#w6', '#f6'],
+        ['#w7', '#f7'],
       ].forEach(function (w, i) {
         const t = 0.8 + i * 3.4
         const c = w[0]
+        /* Only this chapter's button is clickable while it's actually the
+           one on screen — see the .chap-visit comment in style.css for why
+           every other chapter's button defaults to pointer-events:none
+           despite all seven sharing the same screen position. The window
+           has to cover this chapter's full dwell time (t to just before
+           the next chapter's own entrance at t+3.4), not just the brief
+           "fully settled" gap between its fade-in finishing (~t+2.0) and
+           its own exit starting (t+1.9, i.e. barely any overlap at all) —
+           an earlier version used exactly that narrow t..t+1.9 window and
+           the button went dead the moment a real scroll nudge crossed it,
+           while the text itself was still clearly on screen fading out. */
+        b7.set(c + ' .chap-visit', { pointerEvents: 'auto' }, t)
+          .set(c + ' .chap-visit', { pointerEvents: 'none' }, t + 3.3)
         b7.fromTo(c + ' .chap-no', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, t)
           .fromTo(
             c + ' .chap-name',
@@ -254,9 +269,11 @@ export function useScrollAnimations(containerRef) {
           )
           .fromTo(c + ' .chap-say', { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, t + 0.8)
           .fromTo(c + ' .chap-tags > *', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.14, ease: 'power2.out' }, t + 1.2)
+          .fromTo(c + ' .chap-visit', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, t + 1.4)
           .to(c + ' .chap-name', { scale: 0.4, y: '-10vh', opacity: 0, filter: 'blur(10px)', duration: 1.3, ease: 'power2.in' }, t + 1.9)
           .to([c + ' .chap-no', c + ' .chap-say'], { opacity: 0, y: -16, duration: 0.8, ease: 'power2.in' }, t + 1.9)
           .to(c + ' .chap-tags > *', { opacity: 0, y: -12, duration: 0.7, stagger: 0.06, ease: 'power2.in' }, t + 1.9)
+          .to(c + ' .chap-visit', { opacity: 0, y: -12, duration: 0.7, ease: 'power2.in' }, t + 1.9)
         if (w[1]) {
           b7.fromTo(w[1], { opacity: 0, y: '8vh', scale: 1.06 }, { opacity: 1, y: '0vh', scale: 1, duration: 1.3, ease: 'power2.out' }, t + 0.6).to(
             w[1],
@@ -265,7 +282,7 @@ export function useScrollAnimations(containerRef) {
           )
         }
       })
-      say(b7, '#t18', 15.0, 2.2, 20)
+      say(b7, '#t18', 24.8, 2.2, 20)
 
       /* ============ 08 · THINK ============ */
       const b8 = beat('think')

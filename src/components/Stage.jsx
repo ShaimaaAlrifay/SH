@@ -85,36 +85,104 @@ export default function Stage() {
         </div>
         <div className="line at-c t-xl" id="t17"><p>Repeat until<br />it <em>feels right.</em></p></div>
 
-        {/* 07 WORK — left column, fragment reserved on the right */}
-        <div className="chap chap-a" id="w1">
-          <span className="chap-no">07 / Work — Rakaya</span>
-          <h2 className="chap-name">Rakaya</h2>
-          <p className="chap-say">Dense operational data, <em>made calm enough to act on.</em></p>
-          <div className="chap-tags"><b>Product</b><b>UX</b><b>Engineering</b></div>
+        {/* 07 WORK — text column and product shot share a flex row per
+            project, so the two are vertically centred against each other
+            (see .chap-row in style.css), not independently against the
+            viewport. */}
+        <div className="chap-row">
+          <div className="chap chap-areep" id="w1">
+            <span className="chap-no">07 / Work — Areep</span>
+            <h2 className="chap-name">Areep</h2>
+            <p className="chap-say">Turning client conversations into <em>clear PRDs.</em></p>
+            <div className="chap-tags"><b>Founder</b><b>AI</b><b>Product</b></div>
+            <a className="chap-visit" href="https://areeb.shhhhh.me" target="_blank" rel="noopener">
+              Visit site <b>↗</b>
+            </a>
+          </div>
+          <img className="frag" id="f1" src={assetUrl('assets/img/frag-7.webp')} alt="" />
         </div>
-        <img className="frag" id="f1" src={assetUrl('assets/img/frag-1.webp')} alt="" />
 
-        <div className="chap chap-b" id="w2">
-          <span className="chap-no">07 / Work — خطوة مسار</span>
-          <h2 className="chap-name ar" dir="rtl">خطوة مسار</h2>
-          <p className="chap-say">Compliance and certification, <em>made legible.</em></p>
-          <div className="chap-tags"><b>Product</b><b>UX</b><b>Frontend</b></div>
+        <div className="chap-row">
+          <div className="chap chap-c" id="w2">
+            <span className="chap-no">07 / Work — تطمّن</span>
+            <h2 className="chap-name ar" dir="rtl">تطمّن</h2>
+            <p className="chap-say">Slower, softer — <em>built for a harder day.</em></p>
+            <div className="chap-tags"><b>Co-founder</b><b>CEO</b><b>UX</b></div>
+            <a className="chap-visit" href="https://t6mn.com/" target="_blank" rel="noopener">
+              Visit site <b>↗</b>
+            </a>
+          </div>
+          <img className="frag" id="f2" src={assetUrl('assets/img/frag-3.webp')} alt="" />
         </div>
-        <img className="frag wide" id="f2" src={assetUrl('assets/img/frag-2.webp')} alt="" />
 
-        <div className="chap chap-c" id="w3">
-          <span className="chap-no">07 / Work — تطمّن</span>
-          <h2 className="chap-name ar" dir="rtl">تطمّن</h2>
-          <p className="chap-say">Slower, softer — <em>built for a harder day.</em></p>
-          <div className="chap-tags"><b>Product</b><b>UX</b><b>Engineering</b></div>
+        <div className="chap-row">
+          <div className="chap chap-shhhhh" id="w3">
+            <span className="chap-no">07 / Work — Shhhhh</span>
+            <h2 className="chap-name">Shhhhh</h2>
+            <p className="chap-say">A quiet studio, <em>building in the open.</em></p>
+            <div className="chap-tags"><b>Studio</b><b>Brand</b></div>
+            <a className="chap-visit" href="https://shhhhh.me/" target="_blank" rel="noopener">
+              Visit site <b>↗</b>
+            </a>
+          </div>
+          <img className="frag" id="f3" src={assetUrl('assets/img/frag-4.webp')} alt="" />
         </div>
-        <img className="frag" id="f3" src={assetUrl('assets/img/frag-3.webp')} alt="" />
 
-        <div className="chap teaser" id="w4">
-          <span className="chap-no">07 / Work — Areep</span>
-          <h2 className="chap-name">Areep</h2>
-          <p className="chap-say">Turning client conversations into <em>clear PRDs.</em></p>
-          <div className="chap-tags"><b>AI</b><b>Product</b><b>Full-stack</b></div>
+        <div className="chap-row">
+          <div className="chap chap-a" id="w4">
+            <span className="chap-no">07 / Work — Rakaya</span>
+            <h2 className="chap-name">Rakaya</h2>
+            <p className="chap-say">Dense operational data, <em>made calm enough to act on.</em></p>
+            <div className="chap-tags"><b>Product Owner</b><b>App Developer</b></div>
+            <a
+              className="chap-visit"
+              href="https://apps.apple.com/sa/app/%D8%B1%D9%83%D8%A7%D9%8A%D8%A7-rakaya/id6762557403"
+              target="_blank"
+              rel="noopener"
+            >
+              View on App Store <b>↗</b>
+            </a>
+          </div>
+          <img className="frag" id="f4" src={assetUrl('assets/img/frag-1.webp')} alt="" />
+        </div>
+
+        <div className="chap-row">
+          <div className="chap chap-b" id="w5">
+            <span className="chap-no">07 / Work — خطوة مسار</span>
+            <h2 className="chap-name ar" dir="rtl">خطوة مسار</h2>
+            <p className="chap-say">Compliance and certification, <em>made legible.</em></p>
+            <div className="chap-tags"><b>UI</b><b>UX</b></div>
+            <a className="chap-visit" href="https://www.kmac.sa/" target="_blank" rel="noopener">
+              Visit site <b>↗</b>
+            </a>
+          </div>
+          <img className="frag" id="f5" src={assetUrl('assets/img/frag-2.webp')} alt="" />
+        </div>
+
+        <div className="chap-row">
+          <div className="chap chap-robinfood" id="w6">
+            <span className="chap-no">07 / Work — Robin Food</span>
+            <h2 className="chap-name">Robin Food</h2>
+            <p className="chap-say">Food delivery, <em>redesigned around real appetite.</em></p>
+            <div className="chap-tags"><b>UI</b><b>UX</b></div>
+            <a className="chap-visit" href="https://robinfood.app/" target="_blank" rel="noopener">
+              Visit site <b>↗</b>
+            </a>
+          </div>
+          <img className="frag" id="f6" src={assetUrl('assets/img/frag-5.webp')} alt="" />
+        </div>
+
+        <div className="chap-row">
+          <div className="chap chap-dar" id="w7">
+            <span className="chap-no">07 / Work — دار الرحمة</span>
+            <h2 className="chap-name ar" dir="rtl">دار الرحمة للاستشارات</h2>
+            <p className="chap-say">Consultancy, <em>presented with clarity and trust.</em></p>
+            <div className="chap-tags"><b>UI</b><b>UX</b></div>
+            <a className="chap-visit" href="https://drconsultancy.sa/" target="_blank" rel="noopener">
+              Visit site <b>↗</b>
+            </a>
+          </div>
+          <img className="frag" id="f7" src={assetUrl('assets/img/frag-6.webp')} alt="" />
         </div>
 
         <div className="line at-l t-md" id="t18"><p>Different problems. Different users. Different contexts.</p></div>
