@@ -180,28 +180,28 @@ img{display:block;max-width:none}
    can otherwise wash out against a same-hued moment in the gradient) */
 .chap-tags>b{border:1px solid var(--border);border-radius:999px;
   padding:.3em .85em;transition:border-color .3s ease,color .3s ease;
-  background:color-mix(in srgb,var(--void) 55%,transparent);
+  background:var(--void);background:color-mix(in srgb,var(--void) 55%,transparent);
   -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 .chap-a .chap-no{color:var(--proj-rakaya)}
-.chap-a .chap-tags>b{border-color:color-mix(in srgb,var(--proj-rakaya) 34%,transparent);color:var(--proj-rakaya)}
-.chap-a .frag{filter:drop-shadow(0 0 46px color-mix(in srgb,var(--proj-rakaya) 16%,transparent))}
+.chap-a .chap-tags>b{border-color:var(--proj-rakaya);border-color:color-mix(in srgb,var(--proj-rakaya) 34%,transparent);color:var(--proj-rakaya)}
+.chap-a .frag{filter:drop-shadow(0 0 46px var(--proj-rakaya));filter:drop-shadow(0 0 46px color-mix(in srgb,var(--proj-rakaya) 16%,transparent))}
 .chap-b .chap-no{color:var(--proj-awwab)}
-.chap-b .chap-tags>b{border-color:color-mix(in srgb,var(--proj-awwab) 34%,transparent);color:var(--proj-awwab)}
-.chap-b .frag{filter:drop-shadow(0 0 46px color-mix(in srgb,var(--proj-awwab) 16%,transparent))}
+.chap-b .chap-tags>b{border-color:var(--proj-awwab);border-color:color-mix(in srgb,var(--proj-awwab) 34%,transparent);color:var(--proj-awwab)}
+.chap-b .frag{filter:drop-shadow(0 0 46px var(--proj-awwab));filter:drop-shadow(0 0 46px color-mix(in srgb,var(--proj-awwab) 16%,transparent))}
 .chap-c .chap-no{color:var(--proj-tutmain)}
-.chap-c .chap-tags>b{border-color:color-mix(in srgb,var(--proj-tutmain) 34%,transparent);color:var(--proj-tutmain)}
-.chap-c .frag{filter:drop-shadow(0 0 46px color-mix(in srgb,var(--proj-tutmain) 16%,transparent))}
+.chap-c .chap-tags>b{border-color:var(--proj-tutmain);border-color:color-mix(in srgb,var(--proj-tutmain) 34%,transparent);color:var(--proj-tutmain)}
+.chap-c .frag{filter:drop-shadow(0 0 46px var(--proj-tutmain));filter:drop-shadow(0 0 46px color-mix(in srgb,var(--proj-tutmain) 16%,transparent))}
 .chap-areep .chap-no{color:var(--proj-areep)}
-.chap-areep .chap-tags>b{border-color:color-mix(in srgb,var(--proj-areep) 34%,transparent);color:var(--proj-areep)}
+.chap-areep .chap-tags>b{border-color:var(--proj-areep);border-color:color-mix(in srgb,var(--proj-areep) 34%,transparent);color:var(--proj-areep)}
 .chap-shhhhh .chap-no{color:var(--proj-shhhhh)}
-.chap-shhhhh .chap-tags>b{border-color:color-mix(in srgb,var(--proj-shhhhh) 34%,transparent);color:var(--proj-shhhhh)}
-.chap-shhhhh .frag{filter:drop-shadow(0 0 46px color-mix(in srgb,var(--proj-shhhhh) 16%,transparent))}
+.chap-shhhhh .chap-tags>b{border-color:var(--proj-shhhhh);border-color:color-mix(in srgb,var(--proj-shhhhh) 34%,transparent);color:var(--proj-shhhhh)}
+.chap-shhhhh .frag{filter:drop-shadow(0 0 46px var(--proj-shhhhh));filter:drop-shadow(0 0 46px color-mix(in srgb,var(--proj-shhhhh) 16%,transparent))}
 .chap-robinfood .chap-no{color:var(--proj-robinfood)}
-.chap-robinfood .chap-tags>b{border-color:color-mix(in srgb,var(--proj-robinfood) 34%,transparent);color:var(--proj-robinfood)}
-.chap-robinfood .frag{filter:drop-shadow(0 0 46px color-mix(in srgb,var(--proj-robinfood) 16%,transparent))}
+.chap-robinfood .chap-tags>b{border-color:var(--proj-robinfood);border-color:color-mix(in srgb,var(--proj-robinfood) 34%,transparent);color:var(--proj-robinfood)}
+.chap-robinfood .frag{filter:drop-shadow(0 0 46px var(--proj-robinfood));filter:drop-shadow(0 0 46px color-mix(in srgb,var(--proj-robinfood) 16%,transparent))}
 .chap-dar .chap-no{color:var(--proj-dar)}
-.chap-dar .chap-tags>b{border-color:color-mix(in srgb,var(--proj-dar) 34%,transparent);color:var(--proj-dar)}
-.chap-dar .frag{filter:drop-shadow(0 0 46px color-mix(in srgb,var(--proj-dar) 16%,transparent))}
+.chap-dar .chap-tags>b{border-color:var(--proj-dar);border-color:color-mix(in srgb,var(--proj-dar) 34%,transparent);color:var(--proj-dar)}
+.chap-dar .frag{filter:drop-shadow(0 0 46px var(--proj-dar));filter:drop-shadow(0 0 46px color-mix(in srgb,var(--proj-dar) 16%,transparent))}
 /* project chapter name links inherit the surrounding heading's type —
    no default link-blue, an underline only on hover/focus so the scroll
    sequence doesn't read as "a list of links" until you're actually near one */
@@ -239,7 +239,7 @@ img{display:block;max-width:none}
   font-family:"JetBrains Mono",monospace;font-size:clamp(.6rem,.7vw,.7rem);
   letter-spacing:.14em;text-transform:uppercase;font-weight:500;
   padding:.6em 1.15em;border:1px solid var(--border);border-radius:999px;
-  background:color-mix(in srgb,var(--void) 55%,transparent);
+  background:var(--void);background:color-mix(in srgb,var(--void) 55%,transparent);
   -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
   opacity:0;transition:border-color .3s ease,color .3s ease,gap .3s ease}
 .chap-visit b{font-weight:400;display:inline-block;transition:transform .5s cubic-bezier(.22,.61,.36,1)}
@@ -359,7 +359,7 @@ main{position:relative;z-index:2;pointer-events:none}
   box-shadow:0 2px 20px rgba(0,0,0,.4);display:grid;place-items:center;
   pointer-events:none;z-index:300;opacity:0;will-change:transform}
 .cursor span{font-family:"JetBrains Mono",monospace;font-size:.5rem;letter-spacing:.2em;
-  text-transform:uppercase;color:#F5F5F2;text-align:center;line-height:1.7;user-select:none}
+  text-transform:uppercase;color:#F5F5F2;text-align:center;line-height:1.7;-webkit-user-select:none;user-select:none}
 @media (hover:hover) and (pointer:fine){ body,a{cursor:none} }
 @media (hover:none),(pointer:coarse){ .cursor{display:none} }
 
