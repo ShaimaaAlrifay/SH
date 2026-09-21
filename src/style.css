@@ -400,6 +400,21 @@ main{position:relative;z-index:2;pointer-events:none}
    into the lower middle; the fragment moves under the chapter text. */
 @media (max-width:900px){
   :root{--pad:7vw;--band:34vh}
+  /* GSAP animates `filter:blur(...)` inline on dozens of elements
+     throughout every single beat of this scroll sequence (the shared
+     `say()` helper alone accounts for most of it) as part of this site's
+     text-reveal language — animated CSS blur is one of the most
+     well-documented mobile Safari/Chrome performance killers, especially
+     scroll-scrubbed (recalculated on every scroll tick) across this many
+     elements, and was a real contributor to the page "hanging" on phones
+     reported live. A stylesheet `!important` rule beats an inline style
+     set by JS without one, so this neutralizes every one of those inline
+     `filter` values on mobile without having to touch the ~20 individual
+     GSAP calls that set them — GSAP's timeline logic (opacity/transform/
+     scale) is completely unaffected, only the blur *rendering* is
+     suppressed. `backdrop-filter` (the frosted pill backgrounds on tags/
+     buttons) is a different property and is untouched by this. */
+  .type *, .stage * { filter: none !important; }
   .dev-ipad{width:min(1300px,104vw,44vh)}
   .dev-design,.dev-ide{width:min(1300px,104vw,56vh)}
   .dev-phone{width:min(560px,70vw,29vh)}
@@ -408,6 +423,14 @@ main{position:relative;z-index:2;pointer-events:none}
     padding-inline:var(--pad);padding-block:6vh}
   .chap{width:100%}
   .chap-say{max-width:100%}
+  /* the desktop .frag formula caps width at 30vw specifically to clear
+     the sidebar nav — but that sidebar is hidden below 900px (see
+     .section-index's own max-width:900px rule) and .chap-row switches to
+     a stacked column here, so there's nothing to its side to avoid.
+     Applying that same 30vw cap on a narrow phone screen shrank the
+     image to a sliver (~115px on a typical 390px-wide phone) — this
+     override restores a real mobile-appropriate size. */
+  .frag{width:min(400px,80vw);height:min(400px,80vw)}
   .word ul{gap:.5rem 1.2rem}
   .gapwrap{padding:7vh var(--pad);row-gap:clamp(.8rem,2.5vh,1.6rem)}
   .mark{left:6vw;bottom:2.6vh}
@@ -425,6 +448,11 @@ main{position:relative;z-index:2;pointer-events:none}
   .dev-phone{width:min(560px,50vw,29vh)}
   .chap-row{flex-direction:row}
   .chap{width:56vw}
+  /* same reasoning as the portrait-mobile override above — most phones in
+     landscape are still under the 900px width where the sidebar hides
+     itself, so the desktop 30vw cap (calibrated to dodge that sidebar)
+     has nothing to avoid here either and just made the image tiny. */
+  .frag{width:min(280px,40vw,55vh);height:min(280px,40vw,55vh)}
   .foot{min-height:92vh}
 }
 
