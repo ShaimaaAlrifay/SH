@@ -48,6 +48,17 @@ export function useScrollAnimations(containerRef) {
         return s
       })
 
+      // The page is ~0 scrollable height until this loop just gave it its
+      // real (very tall) height — on a reload, the browser's own scroll
+      // restoration can re-apply itself right around this exact moment
+      // (it tracks the page growing/settling during load, not just a
+      // single point in time), silently overriding the plain
+      // `window.scrollTo(0, 0)` already done in main.jsx before any of
+      // this existed to scroll within. Confirmed live: without this
+      // second reset here, a reload from deep in the page landed at a
+      // seemingly arbitrary scroll position instead of 0.
+      window.scrollTo(0, 0)
+
       const beatST = []
       function beat(n) {
         const tl = gsap.timeline({

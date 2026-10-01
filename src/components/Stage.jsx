@@ -99,7 +99,7 @@ export default function Stage() {
               Visit site <b>↗</b>
             </a>
           </div>
-          <img className="frag" id="f1" src={assetUrl('assets/img/frag-7.webp')} alt="" />
+          <img className="frag" id="f1" src={assetUrl('assets/img/frag-7.webp')} alt="" loading="lazy" decoding="async" />
         </div>
 
         <div className="chap-row">
@@ -112,7 +112,7 @@ export default function Stage() {
               Visit site <b>↗</b>
             </a>
           </div>
-          <img className="frag" id="f2" src={assetUrl('assets/img/frag-3.webp')} alt="" />
+          <img className="frag" id="f2" src={assetUrl('assets/img/frag-3.webp')} alt="" loading="lazy" decoding="async" />
         </div>
 
         <div className="chap-row">
@@ -125,7 +125,7 @@ export default function Stage() {
               Visit site <b>↗</b>
             </a>
           </div>
-          <img className="frag" id="f3" src={assetUrl('assets/img/frag-4.webp')} alt="" />
+          <img className="frag" id="f3" src={assetUrl('assets/img/frag-4.webp')} alt="" loading="lazy" decoding="async" />
         </div>
 
         <div className="chap-row">
@@ -143,7 +143,7 @@ export default function Stage() {
               View on App Store <b>↗</b>
             </a>
           </div>
-          <img className="frag" id="f4" src={assetUrl('assets/img/frag-1.webp')} alt="" />
+          <img className="frag" id="f4" src={assetUrl('assets/img/frag-1.webp')} alt="" loading="lazy" decoding="async" />
         </div>
 
         <div className="chap-row">
@@ -156,7 +156,7 @@ export default function Stage() {
               Visit site <b>↗</b>
             </a>
           </div>
-          <img className="frag" id="f5" src={assetUrl('assets/img/frag-2.webp')} alt="" />
+          <img className="frag" id="f5" src={assetUrl('assets/img/frag-2.webp')} alt="" loading="lazy" decoding="async" />
         </div>
 
         <div className="chap-row">
@@ -169,7 +169,7 @@ export default function Stage() {
               Visit site <b>↗</b>
             </a>
           </div>
-          <img className="frag" id="f6" src={assetUrl('assets/img/frag-5.webp')} alt="" />
+          <img className="frag" id="f6" src={assetUrl('assets/img/frag-5.webp')} alt="" loading="lazy" decoding="async" />
         </div>
 
         <div className="chap-row">
@@ -182,7 +182,7 @@ export default function Stage() {
               Visit site <b>↗</b>
             </a>
           </div>
-          <img className="frag" id="f7" src={assetUrl('assets/img/frag-6.webp')} alt="" />
+          <img className="frag" id="f7" src={assetUrl('assets/img/frag-6.webp')} alt="" loading="lazy" decoding="async" />
         </div>
 
         <div className="line at-l t-md" id="t18"><p>Different problems. Different users. Different contexts.</p></div>

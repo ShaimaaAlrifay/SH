@@ -1,5 +1,6 @@
 import { Renderer, Program, Mesh, Color, Triangle } from 'ogl';
 import { useEffect, useRef } from 'react';
+import { isScrollActive } from '../lib/scrollActivity';
 import './Galaxy.css';
 
 const vertexShader = `
@@ -263,6 +264,18 @@ export default function Galaxy({
 
     function update(t) {
       animateId = requestAnimationFrame(update);
+
+      // Skip the actual GPU draw call while the user is mid-scroll — see
+      // src/lib/scrollActivity.js for why: this canvas's own render loop
+      // was found (via real profiling) to be the dominant cause of scroll
+      // jank, contending with GSAP's ScrollTrigger scrub work for the same
+      // per-frame budget. Still scheduling the next rAF (above) so it
+      // resumes instantly, with no restart lag, the moment scrolling
+      // settles — this is a purely decorative background, so a ~150ms
+      // pause in its own animation progress is never visible against the
+      // benefit of not fighting the scroll-driven content for the thread.
+      if (isScrollActive()) return;
+
       if (!disableAnimation) {
         program.uniforms.uTime.value = t * 0.001;
         program.uniforms.uStarSpeed.value = (t * 0.001 * starSpeed) / 10.0;

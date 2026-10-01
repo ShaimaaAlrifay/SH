@@ -47,6 +47,10 @@
 html{background:var(--void)}
 body{background:var(--void);color:var(--ink);
   font-family:"Inter Tight",system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+/* set by Loader.jsx while fonts/GSAP/the WebGL background are still
+   getting ready — keeps a visitor from scrolling into a half-initialized
+   ScrollTrigger sequence underneath the loading screen */
+body.is-loading{overflow:hidden;height:100vh}
 img{display:block;max-width:none}
 
 /* ================= the stage ================= */

@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { Renderer, Program, Triangle, Mesh } from 'ogl';
+import { isScrollActive } from '../lib/scrollActivity';
 import './LightRays.css';
 
 const DEFAULT_COLOR = '#ffffff';
@@ -261,6 +262,14 @@ void main() {
 
       const loop = t => {
         if (!rendererRef.current || !uniformsRef.current || !meshRef.current) {
+          return;
+        }
+
+        // Same fix as Galaxy.jsx — see src/lib/scrollActivity.js. Skip this
+        // canvas's own GPU draw call while the user is mid-scroll (still
+        // re-scheduling the loop below so it resumes with no restart lag).
+        if (isScrollActive()) {
+          animationIdRef.current = requestAnimationFrame(loop);
           return;
         }
 
