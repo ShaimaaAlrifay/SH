@@ -22,7 +22,7 @@ window.scrollTo(0, 0)
 
 // --sketch / --notes are consumed as background-image url()s in style.css,
 // but plain CSS has no access to Vite's base path — set them here instead,
-// so they resolve correctly under the GitHub Pages subpath (base:"/SH/").
+// so they resolve correctly wherever the build is hosted (root or subfolder).
 document.documentElement.style.setProperty('--sketch', `url("${assetUrl('assets/img/sketch.webp')}")`)
 document.documentElement.style.setProperty('--notes', `url("${assetUrl('assets/img/notes.webp')}")`)
 

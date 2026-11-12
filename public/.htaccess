@@ -1,0 +1,41 @@
+# Apache config for the production build (copied into dist/ by Vite).
+# Requires mod_mime; mod_headers / mod_rewrite are used if enabled.
+
+# Correct MIME types — module scripts must never be served as text/html.
+<IfModule mod_mime.c>
+  AddType application/javascript .js .mjs
+  AddType text/css .css
+  AddType image/webp .webp
+  AddType image/svg+xml .svg
+  AddType application/pdf .pdf
+  AddType font/woff2 .woff2
+</IfModule>
+
+Options -MultiViews
+DirectoryIndex index.html
+
+# Missing files must return a real 404 — never index.html. A fallback that
+# answers /assets/missing.js with the HTML page is exactly what produces
+# "Expected a JavaScript module script but the server responded with a
+# MIME type of text/html". The site is a single page (no client routes),
+# so no SPA rewrite to index.html is needed at all.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ - [R=404,L]
+</IfModule>
+
+# Caching: hashed build files (assets/index-XXXX.js/.css) never change
+# content under the same name, so cache them forever. index.html must
+# always be revalidated so a new deploy picks up the new hashed names
+# instead of pointing at files from an old build.
+<IfModule mod_headers.c>
+  <FilesMatch "^index-[A-Za-z0-9_-]+\.(js|css)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  Header always set X-Content-Type-Options "nosniff"
+</IfModule>
