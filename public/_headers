@@ -1,0 +1,10 @@
+# Cloudflare Pages response headers (ignored by other hosts).
+# Hashed build files never change under the same name: cache forever.
+/assets/index-*
+  Cache-Control: public, max-age=31536000, immutable
+  X-Content-Type-Options: nosniff
+
+# index.html must always be revalidated so a new deploy is picked up.
+/
+  Cache-Control: no-cache
+  X-Content-Type-Options: nosniff
